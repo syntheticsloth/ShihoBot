@@ -75,7 +75,7 @@ class Tiering(commands.Cog):
             dest_channel = ctx.interaction.channel
         embed = gen_embed(
             name=f"{ctx.guild.name}",
-            thumb_url=ctx.guild.icon.url,
+            icon_url=ctx.guild.icon.url,
             title='Tiering Etiqeutte and Efficiency',
             content='Efficiency guidelines taken from LH 2.0, originally made by Binh and edited by doom_chicken.')
         embed.set_image(url='https://files.s-neon.xyz/share/bandori-efficiency.png')
@@ -142,7 +142,7 @@ class Tiering(commands.Cog):
             dest_channel = ctx.interaction.channel
         embed = gen_embed(
             name=f"{ctx.guild.name}",
-            thumb_url=ctx.guild.icon.url,
+            icon_url=ctx.guild.icon.url,
             title='Versus Live Tiering Info',
             content=('Graciously stolen from **Zia** & **Blur** and the **Play Act! Challenge*Audition** server,'
                      ' edited by **Neon**'))
@@ -210,7 +210,7 @@ class Tiering(commands.Cog):
             dest_channel = ctx.interaction.channel
         embed = gen_embed(
             name=f"{ctx.guild.name}",
-            thumb_url=ctx.guild.icon.url,
+            icon_url=ctx.guild.icon.url,
             title='Carpal Tunnel & Tiering Wellness',
             content=('Graciously created by **Aris/Nio**, originally for PRSK, edited by **Neon**'
                      '\n***Disclaimer: This is not medical advice. This is for educational purposes only and is my'
@@ -310,7 +310,7 @@ class Tiering(commands.Cog):
             dest_channel = ctx.interaction.channel
         embed = gen_embed(
             name=f"{ctx.guild.name}",
-            thumb_url=ctx.guild.icon.url,
+            icon_url=ctx.guild.icon.url,
             title='New Tiering Member Tips & Tricks',
             content=('Graciously created by **feathers**, edited by **Neon**'
                      '\n\nHi all, I’m here to make a special additional post regarding new players, rules, and tiering'

@@ -37,15 +37,16 @@ class Help(commands.Cog):
                                                       'in the list below. Send this command with the '
                                                       'optional value to get detailed help with those '
                                                       'commands.\n\n'
-                                                      'Need help with anything? Feel free to shoot me '
-                                                      'a DM (Neon#5555 or @neon10lights on twitter) or '
-                                                      'join the server at https://discord.gg/AYTFJY8VhF.\n\n'
-                                                      'View our privacy policy: '
-                                                      'https://s-neon.xyz/privacy-policy\n'
-                                                      'To request data deletion: '
-                                                      'https://forms.gle/4LYZvADpoe12R6BZ8'))
+                                                      # 'Need help with anything? Feel free to shoot me '
+                                                      # 'a DM (Neon#5555 or @neon10lights on twitter) or '
+                                                      # 'join the server at https://discord.gg/AYTFJY8VhF.\n\n'
+                                                      # 'View our privacy policy: '
+                                                      # 'https://s-neon.xyz/privacy-policy\n'
+                                                      # 'To request data deletion: '
+                                                      # 'https://forms.gle/4LYZvADpoe12R6BZ8'
+                                                      ))
             help_message.set_thumbnail(url=bot_icon_url)
-            help_message.set_footer(text='Fueee~')
+            help_message.set_footer(text='Don\'t say I didn\'t warn you')
             for x in self.bot.cogs:
                 cog_commands = (self.bot.get_cog(x)).get_commands()
                 if cog_commands and x not in ['Dev']:
