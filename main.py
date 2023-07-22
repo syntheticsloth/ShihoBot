@@ -24,6 +24,7 @@ from formatting.constants import FILTER
 with open("config.json") as file:
     config_json = json.load(file)
     TOKEN = config_json["token"]
+    DBUSER = config_json['db_user']
     DBPASSWORD = config_json['db_password']
     TWTTOKEN = config_json['twitter_token']
     TWTSECRET = config_json['twitter_secret']
@@ -41,6 +42,7 @@ intents.members = True
 intents.message_content = True
 
 databaseName = config_json["database_name"]
+databaseSub = config_json["database_sub"]
 
 default_prefix = "%"
 prefix_list = {}
@@ -128,7 +130,7 @@ log.info('\n')
 log.info(f'Establishing connection to MongoDB database {databaseName}')
 
 mclient = motor.motor_asyncio.AsyncIOMotorClient(
-    f"mongodb+srv://admin:{DBPASSWORD}@delphinium.jnxfw.mongodb.net/{databaseName}?retryWrites=true&w=majority")
+    f"mongodb+srv://{DBUSER}:{DBPASSWORD}@{databaseName}.{databaseSub}.mongodb.net/?retryWrites=true&w=majority")
 mclient.get_io_loop = asyncio.get_running_loop
 
 db = mclient[databaseName]
@@ -239,18 +241,18 @@ bot.load_extension("commands.help")
 bot.load_extension("commands.errorhandler")
 bot.load_extension("commands.listeners")
 bot.load_extension("commands.misc")
-bot.load_extension("commands.utility")
+# bot.load_extension("commands.utility")
 bot.load_extension("commands.administration")
 bot.load_extension("commands.tiering")
-bot.load_extension("commands.modmail")
-bot.load_extension("commands.reminder")
-bot.load_extension("commands.t100chart")
-bot.load_extension("commands.fun")
-bot.load_extension("commands.pubcord")
-bot.load_extension("commands.old")
-bot.load_extension("commands.event")
-bot.load_extension("commands.update")
-bot.load_extension("commands.game")
+# bot.load_extension("commands.modmail")
+# bot.load_extension("commands.reminder")
+# bot.load_extension("commands.t100chart")
+# bot.load_extension("commands.fun")
+# bot.load_extension("commands.pubcord")
+# bot.load_extension("commands.old")
+# bot.load_extension("commands.event")
+# bot.load_extension("commands.update")
+# bot.load_extension("commands.game")
 #bot.load_extension("commands.custom")
 
 
