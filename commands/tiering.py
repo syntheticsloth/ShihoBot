@@ -534,617 +534,617 @@ class Tiering(commands.Cog):
             await ctx.interaction.followup.send(embed=gen_embed(title='Edit Room',
                                                                 content=f'Closed room'))
 
-    @discord.slash_command(name='giftbox',
-                           description='Helps you calculate the optimal pulls for getting small boost cans.')
-    async def giftbox(self,
-                      ctx: discord.ApplicationContext,
-                      event: Option(str, 'The current event type',
-                                    choices=[OptionChoice('VS Live', value='1'),
-                                             OptionChoice('Team Live Festival', value='2')]),
-                      giftbox: Option(int, 'The number of the giftbox you are currently on',
-                                      min_value=1,
-                                      max_value=99999,
-                                      default=1,
-                                      required=False)):
-        class GiftboxMenu(discord.ui.View):
-            def __init__(self, context, boxnum, event_type):
-                super().__init__(timeout=900.0)
-                self.context = context
-                self.boxnum = boxnum
-                self.event_type = int(event_type)
-                self.value = None
-                self.boxsize = 0
-                self.cansize = 0
-                self.can_remaining = 0
-                self.remaining = 0
-                self.vs_boxsizes = [30, 50, 70, 120, 170, 180]
-                self.tl_boxsizes = [40, 65, 90, 160, 220, 230]
-                self.vs_cansizes = [3, 5, 10, 10, 10, 10]
-                self.tl_cansizes = [3, 5, 5, 5, 5, 10]
-                self.vs_base_probabilities = [.1, .1, .1429, .0833, .0588, .0556]
-                self.tl_base_probabilities = [.075, .0769, .0555, .03125, .0227, .0435]
-                self.base_probability = 0
-                self.probability = 0
+    # @discord.slash_command(name='giftbox',
+    #                        description='Helps you calculate the optimal pulls for getting small boost cans.')
+    # async def giftbox(self,
+    #                   ctx: discord.ApplicationContext,
+    #                   event: Option(str, 'The current event type',
+    #                                 choices=[OptionChoice('VS Live', value='1'),
+    #                                          OptionChoice('Team Live Festival', value='2')]),
+    #                   giftbox: Option(int, 'The number of the giftbox you are currently on',
+    #                                   min_value=1,
+    #                                   max_value=99999,
+    #                                   default=1,
+    #                                   required=False)):
+    #     class GiftboxMenu(discord.ui.View):
+    #         def __init__(self, context, boxnum, event_type):
+    #             super().__init__(timeout=900.0)
+    #             self.context = context
+    #             self.boxnum = boxnum
+    #             self.event_type = int(event_type)
+    #             self.value = None
+    #             self.boxsize = 0
+    #             self.cansize = 0
+    #             self.can_remaining = 0
+    #             self.remaining = 0
+    #             self.vs_boxsizes = [30, 50, 70, 120, 170, 180]
+    #             self.tl_boxsizes = [40, 65, 90, 160, 220, 230]
+    #             self.vs_cansizes = [3, 5, 10, 10, 10, 10]
+    #             self.tl_cansizes = [3, 5, 5, 5, 5, 10]
+    #             self.vs_base_probabilities = [.1, .1, .1429, .0833, .0588, .0556]
+    #             self.tl_base_probabilities = [.075, .0769, .0555, .03125, .0227, .0435]
+    #             self.base_probability = 0
+    #             self.probability = 0
+    #
+    #             if self.boxnum == 1:
+    #                 if self.event_type == 1:
+    #                     self.remaining = self.vs_boxsizes[0]
+    #                     self.can_remaining = self.vs_cansizes[0]
+    #                     self.boxsize = self.vs_boxsizes[0]
+    #                     self.cansize = self.vs_cansizes[0]
+    #                     self.probability = self.vs_base_probabilities[0]
+    #                     self.base_probability = self.vs_base_probabilities[1]
+    #                 elif self.event_type == 2:
+    #                     self.remaining = self.tl_boxsizes[0]
+    #                     self.can_remaining = self.tl_cansizes[0]
+    #                     self.boxsize = self.tl_boxsizes[0]
+    #                     self.cansize = self.tl_cansizes[0]
+    #                     self.probability = self.tl_base_probabilities[0]
+    #                     self.base_probability = self.tl_base_probabilities[1]
+    #             elif self.boxnum == 2:
+    #                 if self.event_type == 1:
+    #                     self.remaining = self.vs_boxsizes[1]
+    #                     self.can_remaining = self.vs_cansizes[1]
+    #                     self.boxsize = self.vs_boxsizes[1]
+    #                     self.cansize = self.vs_cansizes[1]
+    #                     self.probability = self.vs_base_probabilities[1]
+    #                     self.base_probability = self.vs_base_probabilities[2]
+    #                 elif self.event_type == 2:
+    #                     self.remaining = self.tl_boxsizes[1]
+    #                     self.can_remaining = self.tl_cansizes[1]
+    #                     self.boxsize = self.tl_boxsizes[1]
+    #                     self.cansize = self.tl_cansizes[1]
+    #                     self.probability = self.tl_base_probabilities[1]
+    #                     self.base_probability = self.tl_base_probabilities[2]
+    #             elif self.boxnum == 3:
+    #                 if self.event_type == 1:
+    #                     self.remaining = self.vs_boxsizes[2]
+    #                     self.can_remaining = self.vs_cansizes[2]
+    #                     self.boxsize = self.vs_boxsizes[2]
+    #                     self.cansize = self.vs_cansizes[2]
+    #                     self.probability = self.vs_base_probabilities[2]
+    #                     self.base_probability = self.vs_base_probabilities[3]
+    #                 elif self.event_type == 2:
+    #                     self.remaining = self.tl_boxsizes[2]
+    #                     self.can_remaining = self.tl_cansizes[2]
+    #                     self.boxsize = self.tl_boxsizes[2]
+    #                     self.cansize = self.tl_cansizes[2]
+    #                     self.probability = self.tl_base_probabilities[2]
+    #                     self.base_probability = self.tl_base_probabilities[3]
+    #             elif self.boxnum == 4:
+    #                 if self.event_type == 1:
+    #                     self.remaining = self.vs_boxsizes[3]
+    #                     self.can_remaining = self.vs_cansizes[3]
+    #                     self.boxsize = self.vs_boxsizes[3]
+    #                     self.cansize = self.vs_cansizes[3]
+    #                     self.probability = self.vs_base_probabilities[3]
+    #                     self.base_probability = self.vs_base_probabilities[4]
+    #                 elif self.event_type == 2:
+    #                     self.remaining = self.tl_boxsizes[3]
+    #                     self.can_remaining = self.tl_cansizes[3]
+    #                     self.boxsize = self.tl_boxsizes[3]
+    #                     self.cansize = self.tl_cansizes[3]
+    #                     self.probability = self.tl_base_probabilities[3]
+    #                     self.base_probability = self.tl_base_probabilities[4]
+    #             elif self.boxnum == 5:
+    #                 if self.event_type == 1:
+    #                     self.remaining = self.vs_boxsizes[4]
+    #                     self.can_remaining = self.vs_cansizes[4]
+    #                     self.boxsize = self.vs_boxsizes[4]
+    #                     self.cansize = self.vs_cansizes[4]
+    #                     self.probability = self.vs_base_probabilities[4]
+    #                     self.base_probability = self.vs_base_probabilities[5]
+    #                 elif self.event_type == 2:
+    #                     self.remaining = self.tl_boxsizes[4]
+    #                     self.can_remaining = self.tl_cansizes[4]
+    #                     self.boxsize = self.tl_boxsizes[4]
+    #                     self.cansize = self.tl_cansizes[4]
+    #                     self.probability = self.tl_base_probabilities[4]
+    #                     self.base_probability = self.tl_base_probabilities[5]
+    #             elif self.boxnum > 5:
+    #                 if self.event_type == 1:
+    #                     self.remaining = self.vs_boxsizes[5]
+    #                     self.can_remaining = self.vs_cansizes[5]
+    #                     self.boxsize = self.vs_boxsizes[5]
+    #                     self.cansize = self.vs_cansizes[5]
+    #                     self.probability = self.vs_base_probabilities[5]
+    #                     self.base_probability = self.vs_base_probabilities[5]
+    #                 elif self.event_type == 2:
+    #                     self.remaining = self.tl_boxsizes[5]
+    #                     self.can_remaining = self.tl_cansizes[5]
+    #                     self.boxsize = self.tl_boxsizes[5]
+    #                     self.cansize = self.tl_cansizes[5]
+    #                     self.probability = self.tl_base_probabilities[5]
+    #                     self.base_probability = self.tl_base_probabilities[5]
+    #
+    #         async def interaction_check(self, interaction):
+    #             if interaction.user != self.context.author:
+    #                 return False
+    #             return True
+    #
+    #         @discord.ui.button(label='-1 Can', style=discord.ButtonStyle.primary)
+    #         async def minusonecan(self, button: discord.ui.Button, interaction: discord.Interaction):
+    #             self.can_remaining -= 1
+    #             if self.can_remaining <= 0:
+    #                 self.children[0].disabled = True
+    #             else:
+    #                 self.children[0].disabled = False
+    #             self.value = 1
+    #             self.probability = self.can_remaining / self.remaining
+    #             if self.probability > self.base_probability:
+    #                 g_embed = gen_embed(title=f'Gift Box #{self.boxnum}',
+    #                                     content=(f"**{self.remaining}/{self.boxsize} remaining**\n"
+    #                                              f"{self.can_remaining}/{self.cansize} cans remaining\n\n"
+    #                                              f"Should I pull? **Yes**"
+    #                                              f" ({round(self.probability * 100, 2)}% probability)"))
+    #             else:
+    #                 g_embed = gen_embed(title=f'Gift Box #{self.boxnum}',
+    #                                     content=(f"**{self.remaining}/{self.boxsize} remaining**\n"
+    #                                              f"{self.can_remaining}/{self.cansize} cans remaining\n\n"
+    #                                              f"Should I pull? **No**"
+    #                                              f" ({round(self.probability * 100, 2)}% probability)"))
+    #             g_embed.set_footer(text='Subtracting one can will not subtract from the total remaining.')
+    #             await interaction.response.edit_message(embed=g_embed, view=self)
+    #
+    #         @discord.ui.button(label='-1', style=discord.ButtonStyle.secondary)
+    #         async def minusone(self, button: discord.ui.Button, interaction: discord.Interaction):
+    #             self.remaining -= 1
+    #             if self.remaining <= 0:
+    #                 self.children[0].disabled = True
+    #                 self.children[1].disabled = True
+    #                 self.children[2].disabled = True
+    #             else:
+    #                 self.children[1].disabled = False
+    #             if self.remaining < 10:
+    #                 self.children[2].disabled = True
+    #             self.value = 2
+    #             if self.remaining != 0:
+    #                 self.probability = self.can_remaining / self.remaining
+    #             else:
+    #                 self.probability = 0
+    #             if self.probability > self.base_probability:
+    #                 g_embed = gen_embed(title=f'Gift Box #{self.boxnum}',
+    #                                     content=(f"**{self.remaining}/{self.boxsize} remaining**\n"
+    #                                              f"{self.can_remaining}/{self.cansize} cans remaining\n\n"
+    #                                              f"Should I pull? **Yes**"
+    #                                              f" ({round(self.probability * 100, 2)}% probability)"))
+    #             else:
+    #                 g_embed = gen_embed(title=f'Gift Box #{self.boxnum}',
+    #                                     content=(f"**{self.remaining}/{self.boxsize} remaining**\n"
+    #                                              f"{self.can_remaining}/{self.cansize} cans remaining\n\n"
+    #                                              f"Should I pull? **No**"
+    #                                              f" ({round(self.probability * 100, 2)}% probability)"))
+    #             g_embed.set_footer(text='Subtracting one can will not subtract from the total remaining.')
+    #             await interaction.response.edit_message(embed=g_embed, view=self)
+    #
+    #         @discord.ui.button(label='-10', style=discord.ButtonStyle.secondary)
+    #         async def minusten(self, button: discord.ui.Button, interaction: discord.Interaction):
+    #             if (self.remaining - 10) < 0:
+    #                 raise RuntimeError('Gift box - tried to subtract more items than are available')
+    #             self.remaining -= 10
+    #             if self.remaining < 10:
+    #                 self.children[2].disabled = True
+    #             else:
+    #                 self.children[2].disabled = False
+    #             self.value = 3
+    #             if self.remaining != 0:
+    #                 self.probability = self.can_remaining / self.remaining
+    #             else:
+    #                 self.probability = 0
+    #                 self.children[1].disabled = True
+    #             if self.probability > self.base_probability:
+    #                 g_embed = gen_embed(title=f'Gift Box #{self.boxnum}',
+    #                                     content=(f"**{self.remaining}/{self.boxsize} remaining**\n"
+    #                                              f"{self.can_remaining}/{self.cansize} cans remaining\n\n"
+    #                                              f"Should I pull? **Yes**"
+    #                                              f" ({round(self.probability * 100, 2)}% probability)"))
+    #             else:
+    #                 g_embed = gen_embed(title=f'Gift Box #{self.boxnum}',
+    #                                     content=(f"**{self.remaining}/{self.boxsize} remaining**\n"
+    #                                              f"{self.can_remaining}/{self.cansize} cans remaining\n\n"
+    #                                              f"Should I pull? **No**"
+    #                                              f" ({round(self.probability * 100, 2)}% probability)"))
+    #             g_embed.set_footer(text='Subtracting one can will not subtract from the total remaining.')
+    #             await interaction.response.edit_message(embed=g_embed, view=self)
+    #
+    #         @discord.ui.button(label='Next Box', style=discord.ButtonStyle.green)
+    #         async def nextbox(self, button: discord.ui.Button, interaction: discord.Interaction):
+    #             self.boxnum += 1
+    #             if self.boxnum == 1:
+    #                 if self.event_type == 1:
+    #                     self.remaining = self.vs_boxsizes[0]
+    #                     self.can_remaining = self.vs_cansizes[0]
+    #                     self.boxsize = self.vs_boxsizes[0]
+    #                     self.cansize = self.vs_cansizes[0]
+    #                     self.probability = self.vs_base_probabilities[0]
+    #                     self.base_probability = self.vs_base_probabilities[1]
+    #                 elif self.event_type == 2:
+    #                     self.remaining = self.tl_boxsizes[0]
+    #                     self.can_remaining = self.tl_cansizes[0]
+    #                     self.boxsize = self.tl_boxsizes[0]
+    #                     self.cansize = self.tl_cansizes[0]
+    #                     self.probability = self.tl_base_probabilities[0]
+    #                     self.base_probability = self.tl_base_probabilities[1]
+    #             elif self.boxnum == 2:
+    #                 if self.event_type == 1:
+    #                     self.remaining = self.vs_boxsizes[1]
+    #                     self.can_remaining = self.vs_cansizes[1]
+    #                     self.boxsize = self.vs_boxsizes[1]
+    #                     self.cansize = self.vs_cansizes[1]
+    #                     self.probability = self.vs_base_probabilities[1]
+    #                     self.base_probability = self.vs_base_probabilities[2]
+    #                 elif self.event_type == 2:
+    #                     self.remaining = self.tl_boxsizes[1]
+    #                     self.can_remaining = self.tl_cansizes[1]
+    #                     self.boxsize = self.tl_boxsizes[1]
+    #                     self.cansize = self.tl_cansizes[1]
+    #                     self.probability = self.tl_base_probabilities[1]
+    #                     self.base_probability = self.tl_base_probabilities[2]
+    #             elif self.boxnum == 3:
+    #                 if self.event_type == 1:
+    #                     self.remaining = self.vs_boxsizes[2]
+    #                     self.can_remaining = self.vs_cansizes[2]
+    #                     self.boxsize = self.vs_boxsizes[2]
+    #                     self.cansize = self.vs_cansizes[2]
+    #                     self.probability = self.vs_base_probabilities[2]
+    #                     self.base_probability = self.vs_base_probabilities[3]
+    #                 elif self.event_type == 2:
+    #                     self.remaining = self.tl_boxsizes[2]
+    #                     self.can_remaining = self.tl_cansizes[2]
+    #                     self.boxsize = self.tl_boxsizes[2]
+    #                     self.cansize = self.tl_cansizes[2]
+    #                     self.probability = self.tl_base_probabilities[2]
+    #                     self.base_probability = self.tl_base_probabilities[3]
+    #             elif self.boxnum == 4:
+    #                 if self.event_type == 1:
+    #                     self.remaining = self.vs_boxsizes[3]
+    #                     self.can_remaining = self.vs_cansizes[3]
+    #                     self.boxsize = self.vs_boxsizes[3]
+    #                     self.cansize = self.vs_cansizes[3]
+    #                     self.probability = self.vs_base_probabilities[3]
+    #                     self.base_probability = self.vs_base_probabilities[4]
+    #                 elif self.event_type == 2:
+    #                     self.remaining = self.tl_boxsizes[3]
+    #                     self.can_remaining = self.tl_cansizes[3]
+    #                     self.boxsize = self.tl_boxsizes[3]
+    #                     self.cansize = self.tl_cansizes[3]
+    #                     self.probability = self.tl_base_probabilities[3]
+    #                     self.base_probability = self.tl_base_probabilities[4]
+    #             elif self.boxnum == 5:
+    #                 if self.event_type == 1:
+    #                     self.remaining = self.vs_boxsizes[4]
+    #                     self.can_remaining = self.vs_cansizes[4]
+    #                     self.boxsize = self.vs_boxsizes[4]
+    #                     self.cansize = self.vs_cansizes[4]
+    #                     self.probability = self.vs_base_probabilities[4]
+    #                     self.base_probability = self.vs_base_probabilities[5]
+    #                 elif self.event_type == 2:
+    #                     self.remaining = self.tl_boxsizes[4]
+    #                     self.can_remaining = self.tl_cansizes[4]
+    #                     self.boxsize = self.tl_boxsizes[4]
+    #                     self.cansize = self.tl_cansizes[4]
+    #                     self.probability = self.tl_base_probabilities[4]
+    #                     self.base_probability = self.tl_base_probabilities[5]
+    #             elif self.boxnum > 5:
+    #                 if self.event_type == 1:
+    #                     self.remaining = self.vs_boxsizes[5]
+    #                     self.can_remaining = self.vs_cansizes[5]
+    #                     self.boxsize = self.vs_boxsizes[5]
+    #                     self.cansize = self.vs_cansizes[5]
+    #                     self.probability = self.vs_base_probabilities[5]
+    #                     self.base_probability = self.vs_base_probabilities[5]
+    #                 elif self.event_type == 2:
+    #                     self.remaining = self.tl_boxsizes[5]
+    #                     self.can_remaining = self.tl_cansizes[5]
+    #                     self.boxsize = self.tl_boxsizes[5]
+    #                     self.cansize = self.tl_cansizes[5]
+    #                     self.probability = self.tl_base_probabilities[5]
+    #                     self.base_probability = self.tl_base_probabilities[5]
+    #             self.value = 4
+    #             for item in self.children:
+    #                 item.disabled = False
+    #             g_embed = gen_embed(title=f'Gift Box #{self.boxnum}',
+    #                                 content=(f"**{self.remaining}/{self.boxsize} remaining**\n"
+    #                                          f"{self.can_remaining}/{self.cansize} cans remaining\n\n"
+    #                                          f"Should I pull? **Yes**"
+    #                                          f" ({round(self.probability * 100, 2)}% probability)"))
+    #             g_embed.set_footer(text='Subtracting one can will not subtract from the total remaining.')
+    #             await interaction.response.edit_message(embed=g_embed, view=self)
+    #
+    #         @discord.ui.button(label='Cancel', style=discord.ButtonStyle.danger)
+    #         async def cancel(self, button: discord.ui.Button, interaction: discord.Interaction):
+    #             await interaction.response.send_message('Closing gift box calculator.', ephemeral=True)
+    #             for item in self.children:
+    #                 item.disabled = True
+    #             self.value = False
+    #             self.stop()
+    #
+    #         @discord.ui.button(label='Manual Input', style=discord.ButtonStyle.secondary, row=1)
+    #         async def manualinput(self, button: discord.ui.Button, interaction: discord.Interaction):
+    #             async def remaining_prompt(attempts=1, sent_messages=[]):
+    #                 def check(m):
+    #                     return m.author == self.context.author and m.channel == self.context.channel
+    #
+    #                 g_sent_message = await self.context.send(embed=gen_embed(
+    #                     title='Items remaining',
+    #                     content='How many items are remaining in the box?'))
+    #                 sent_messages.append(g_sent_message)
+    #                 try:
+    #                     mmsg = await self.context.bot.wait_for('message', check=check, timeout=60.0)
+    #                 except asyncio.TimeoutError:
+    #                     await self.context.send(embed=gen_embed(title='Gift box Cancelled',
+    #                                                             content='Gift box calculator cancelled.'))
+    #                     return
+    #                 if re.match(r'^\d+$', mmsg.clean_content):
+    #                     if validators.between(int(mmsg.clean_content), min=0, max=self.boxsize):
+    #                         for message in sent_messages:
+    #                             await message.delete()
+    #                         await mmsg.delete()
+    #                         return int(mmsg.clean_content)
+    #                     elif attempts > 3:
+    #                         raise discord.ext.commands.BadArgument()
+    #                     else:
+    #                         g_sent_message = await self.context.send(embed=gen_embed(
+    #                             title='Items remaining',
+    #                             content=(f"Sorry, I didn't catch that or it was an invalid format.\n"
+    #                                      f"Please enter a number from 1-{self.boxsize}.")))
+    #                         sent_messages.append(g_sent_message)
+    #                         attempts += 1
+    #                         return await remaining_prompt(attempts, sent_messages)
+    #                 elif attempts > 3:
+    #                     raise discord.ext.commands.BadArgument()
+    #                 else:
+    #                     g_sent_message = await self.context.send(embed=gen_embed(
+    #                         title='Items remaining',
+    #                         content=(f"Sorry, I didn't catch that or it was an invalid format.\n"
+    #                                  f"Please enter a number from 1-{self.boxsize}.")))
+    #                     sent_messages.append(g_sent_message)
+    #                     attempts += 1
+    #                     return await remaining_prompt(attempts, sent_messages)
+    #
+    #             await interaction.response.defer()
+    #             self.remaining = await remaining_prompt()
+    #             if self.remaining != 0:
+    #                 self.probability = self.can_remaining / self.remaining
+    #             else:
+    #                 self.probability = 0
+    #                 self.children[1].disabled = True
+    #                 self.children[2].disabled = True
+    #             if self.probability > self.base_probability:
+    #                 g_embed = gen_embed(title=f'Gift Box #{self.boxnum}',
+    #                                     content=(f"**{self.remaining}/{self.boxsize} remaining**\n"
+    #                                              f"{self.can_remaining}/{self.cansize} cans remaining\n\n"
+    #                                              f"Should I pull? **Yes**"
+    #                                              f"({round(self.probability * 100, 2)}% probability)"))
+    #             else:
+    #                 g_embed = gen_embed(title=f'Gift Box #{self.boxnum}',
+    #                                     content=(f"**{self.remaining}/{self.boxsize} remaining**\n"
+    #                                              f"{self.can_remaining}/{self.cansize} cans remaining\n\n"
+    #                                              f"Should I pull? **No**"
+    #                                              f"({round(self.probability * 100, 2)}% probability)"))
+    #             g_embed.set_footer(text='Subtracting one can will not subtract from the total remaining.')
+    #             await interaction.edit_original_response(embed=g_embed, view=self)
+    #
+    #     await ctx.interaction.response.defer()
+    #     giftbox_view = GiftboxMenu(ctx, giftbox, event)
+    #     current_probability = giftbox_view.can_remaining / giftbox_view.remaining
+    #     embed = gen_embed(title=f'Gift Box #{giftbox}',
+    #                       content=(f"**{giftbox_view.remaining}/{giftbox_view.boxsize} remaining**\n"
+    #                                f"{giftbox_view.can_remaining}/{giftbox_view.cansize} cans remaining\n\n"
+    #                                f"Should I pull? **Yes** ({round(current_probability * 100, 2)}% probability)"))
+    #     embed.set_footer(text='Subtracting one can will not subtract from the total remaining.')
+    #     sent_message = await ctx.interaction.followup.send(embed=embed, view=giftbox_view)
+    #     await giftbox_view.wait()
+    #     await sent_message.edit(view=giftbox_view)
 
-                if self.boxnum == 1:
-                    if self.event_type == 1:
-                        self.remaining = self.vs_boxsizes[0]
-                        self.can_remaining = self.vs_cansizes[0]
-                        self.boxsize = self.vs_boxsizes[0]
-                        self.cansize = self.vs_cansizes[0]
-                        self.probability = self.vs_base_probabilities[0]
-                        self.base_probability = self.vs_base_probabilities[1]
-                    elif self.event_type == 2:
-                        self.remaining = self.tl_boxsizes[0]
-                        self.can_remaining = self.tl_cansizes[0]
-                        self.boxsize = self.tl_boxsizes[0]
-                        self.cansize = self.tl_cansizes[0]
-                        self.probability = self.tl_base_probabilities[0]
-                        self.base_probability = self.tl_base_probabilities[1]
-                elif self.boxnum == 2:
-                    if self.event_type == 1:
-                        self.remaining = self.vs_boxsizes[1]
-                        self.can_remaining = self.vs_cansizes[1]
-                        self.boxsize = self.vs_boxsizes[1]
-                        self.cansize = self.vs_cansizes[1]
-                        self.probability = self.vs_base_probabilities[1]
-                        self.base_probability = self.vs_base_probabilities[2]
-                    elif self.event_type == 2:
-                        self.remaining = self.tl_boxsizes[1]
-                        self.can_remaining = self.tl_cansizes[1]
-                        self.boxsize = self.tl_boxsizes[1]
-                        self.cansize = self.tl_cansizes[1]
-                        self.probability = self.tl_base_probabilities[1]
-                        self.base_probability = self.tl_base_probabilities[2]
-                elif self.boxnum == 3:
-                    if self.event_type == 1:
-                        self.remaining = self.vs_boxsizes[2]
-                        self.can_remaining = self.vs_cansizes[2]
-                        self.boxsize = self.vs_boxsizes[2]
-                        self.cansize = self.vs_cansizes[2]
-                        self.probability = self.vs_base_probabilities[2]
-                        self.base_probability = self.vs_base_probabilities[3]
-                    elif self.event_type == 2:
-                        self.remaining = self.tl_boxsizes[2]
-                        self.can_remaining = self.tl_cansizes[2]
-                        self.boxsize = self.tl_boxsizes[2]
-                        self.cansize = self.tl_cansizes[2]
-                        self.probability = self.tl_base_probabilities[2]
-                        self.base_probability = self.tl_base_probabilities[3]
-                elif self.boxnum == 4:
-                    if self.event_type == 1:
-                        self.remaining = self.vs_boxsizes[3]
-                        self.can_remaining = self.vs_cansizes[3]
-                        self.boxsize = self.vs_boxsizes[3]
-                        self.cansize = self.vs_cansizes[3]
-                        self.probability = self.vs_base_probabilities[3]
-                        self.base_probability = self.vs_base_probabilities[4]
-                    elif self.event_type == 2:
-                        self.remaining = self.tl_boxsizes[3]
-                        self.can_remaining = self.tl_cansizes[3]
-                        self.boxsize = self.tl_boxsizes[3]
-                        self.cansize = self.tl_cansizes[3]
-                        self.probability = self.tl_base_probabilities[3]
-                        self.base_probability = self.tl_base_probabilities[4]
-                elif self.boxnum == 5:
-                    if self.event_type == 1:
-                        self.remaining = self.vs_boxsizes[4]
-                        self.can_remaining = self.vs_cansizes[4]
-                        self.boxsize = self.vs_boxsizes[4]
-                        self.cansize = self.vs_cansizes[4]
-                        self.probability = self.vs_base_probabilities[4]
-                        self.base_probability = self.vs_base_probabilities[5]
-                    elif self.event_type == 2:
-                        self.remaining = self.tl_boxsizes[4]
-                        self.can_remaining = self.tl_cansizes[4]
-                        self.boxsize = self.tl_boxsizes[4]
-                        self.cansize = self.tl_cansizes[4]
-                        self.probability = self.tl_base_probabilities[4]
-                        self.base_probability = self.tl_base_probabilities[5]
-                elif self.boxnum > 5:
-                    if self.event_type == 1:
-                        self.remaining = self.vs_boxsizes[5]
-                        self.can_remaining = self.vs_cansizes[5]
-                        self.boxsize = self.vs_boxsizes[5]
-                        self.cansize = self.vs_cansizes[5]
-                        self.probability = self.vs_base_probabilities[5]
-                        self.base_probability = self.vs_base_probabilities[5]
-                    elif self.event_type == 2:
-                        self.remaining = self.tl_boxsizes[5]
-                        self.can_remaining = self.tl_cansizes[5]
-                        self.boxsize = self.tl_boxsizes[5]
-                        self.cansize = self.tl_cansizes[5]
-                        self.probability = self.tl_base_probabilities[5]
-                        self.base_probability = self.tl_base_probabilities[5]
-
-            async def interaction_check(self, interaction):
-                if interaction.user != self.context.author:
-                    return False
-                return True
-
-            @discord.ui.button(label='-1 Can', style=discord.ButtonStyle.primary)
-            async def minusonecan(self, button: discord.ui.Button, interaction: discord.Interaction):
-                self.can_remaining -= 1
-                if self.can_remaining <= 0:
-                    self.children[0].disabled = True
-                else:
-                    self.children[0].disabled = False
-                self.value = 1
-                self.probability = self.can_remaining / self.remaining
-                if self.probability > self.base_probability:
-                    g_embed = gen_embed(title=f'Gift Box #{self.boxnum}',
-                                        content=(f"**{self.remaining}/{self.boxsize} remaining**\n"
-                                                 f"{self.can_remaining}/{self.cansize} cans remaining\n\n"
-                                                 f"Should I pull? **Yes**"
-                                                 f" ({round(self.probability * 100, 2)}% probability)"))
-                else:
-                    g_embed = gen_embed(title=f'Gift Box #{self.boxnum}',
-                                        content=(f"**{self.remaining}/{self.boxsize} remaining**\n"
-                                                 f"{self.can_remaining}/{self.cansize} cans remaining\n\n"
-                                                 f"Should I pull? **No**"
-                                                 f" ({round(self.probability * 100, 2)}% probability)"))
-                g_embed.set_footer(text='Subtracting one can will not subtract from the total remaining.')
-                await interaction.response.edit_message(embed=g_embed, view=self)
-
-            @discord.ui.button(label='-1', style=discord.ButtonStyle.secondary)
-            async def minusone(self, button: discord.ui.Button, interaction: discord.Interaction):
-                self.remaining -= 1
-                if self.remaining <= 0:
-                    self.children[0].disabled = True
-                    self.children[1].disabled = True
-                    self.children[2].disabled = True
-                else:
-                    self.children[1].disabled = False
-                if self.remaining < 10:
-                    self.children[2].disabled = True
-                self.value = 2
-                if self.remaining != 0:
-                    self.probability = self.can_remaining / self.remaining
-                else:
-                    self.probability = 0
-                if self.probability > self.base_probability:
-                    g_embed = gen_embed(title=f'Gift Box #{self.boxnum}',
-                                        content=(f"**{self.remaining}/{self.boxsize} remaining**\n"
-                                                 f"{self.can_remaining}/{self.cansize} cans remaining\n\n"
-                                                 f"Should I pull? **Yes**"
-                                                 f" ({round(self.probability * 100, 2)}% probability)"))
-                else:
-                    g_embed = gen_embed(title=f'Gift Box #{self.boxnum}',
-                                        content=(f"**{self.remaining}/{self.boxsize} remaining**\n"
-                                                 f"{self.can_remaining}/{self.cansize} cans remaining\n\n"
-                                                 f"Should I pull? **No**"
-                                                 f" ({round(self.probability * 100, 2)}% probability)"))
-                g_embed.set_footer(text='Subtracting one can will not subtract from the total remaining.')
-                await interaction.response.edit_message(embed=g_embed, view=self)
-
-            @discord.ui.button(label='-10', style=discord.ButtonStyle.secondary)
-            async def minusten(self, button: discord.ui.Button, interaction: discord.Interaction):
-                if (self.remaining - 10) < 0:
-                    raise RuntimeError('Gift box - tried to subtract more items than are available')
-                self.remaining -= 10
-                if self.remaining < 10:
-                    self.children[2].disabled = True
-                else:
-                    self.children[2].disabled = False
-                self.value = 3
-                if self.remaining != 0:
-                    self.probability = self.can_remaining / self.remaining
-                else:
-                    self.probability = 0
-                    self.children[1].disabled = True
-                if self.probability > self.base_probability:
-                    g_embed = gen_embed(title=f'Gift Box #{self.boxnum}',
-                                        content=(f"**{self.remaining}/{self.boxsize} remaining**\n"
-                                                 f"{self.can_remaining}/{self.cansize} cans remaining\n\n"
-                                                 f"Should I pull? **Yes**"
-                                                 f" ({round(self.probability * 100, 2)}% probability)"))
-                else:
-                    g_embed = gen_embed(title=f'Gift Box #{self.boxnum}',
-                                        content=(f"**{self.remaining}/{self.boxsize} remaining**\n"
-                                                 f"{self.can_remaining}/{self.cansize} cans remaining\n\n"
-                                                 f"Should I pull? **No**"
-                                                 f" ({round(self.probability * 100, 2)}% probability)"))
-                g_embed.set_footer(text='Subtracting one can will not subtract from the total remaining.')
-                await interaction.response.edit_message(embed=g_embed, view=self)
-
-            @discord.ui.button(label='Next Box', style=discord.ButtonStyle.green)
-            async def nextbox(self, button: discord.ui.Button, interaction: discord.Interaction):
-                self.boxnum += 1
-                if self.boxnum == 1:
-                    if self.event_type == 1:
-                        self.remaining = self.vs_boxsizes[0]
-                        self.can_remaining = self.vs_cansizes[0]
-                        self.boxsize = self.vs_boxsizes[0]
-                        self.cansize = self.vs_cansizes[0]
-                        self.probability = self.vs_base_probabilities[0]
-                        self.base_probability = self.vs_base_probabilities[1]
-                    elif self.event_type == 2:
-                        self.remaining = self.tl_boxsizes[0]
-                        self.can_remaining = self.tl_cansizes[0]
-                        self.boxsize = self.tl_boxsizes[0]
-                        self.cansize = self.tl_cansizes[0]
-                        self.probability = self.tl_base_probabilities[0]
-                        self.base_probability = self.tl_base_probabilities[1]
-                elif self.boxnum == 2:
-                    if self.event_type == 1:
-                        self.remaining = self.vs_boxsizes[1]
-                        self.can_remaining = self.vs_cansizes[1]
-                        self.boxsize = self.vs_boxsizes[1]
-                        self.cansize = self.vs_cansizes[1]
-                        self.probability = self.vs_base_probabilities[1]
-                        self.base_probability = self.vs_base_probabilities[2]
-                    elif self.event_type == 2:
-                        self.remaining = self.tl_boxsizes[1]
-                        self.can_remaining = self.tl_cansizes[1]
-                        self.boxsize = self.tl_boxsizes[1]
-                        self.cansize = self.tl_cansizes[1]
-                        self.probability = self.tl_base_probabilities[1]
-                        self.base_probability = self.tl_base_probabilities[2]
-                elif self.boxnum == 3:
-                    if self.event_type == 1:
-                        self.remaining = self.vs_boxsizes[2]
-                        self.can_remaining = self.vs_cansizes[2]
-                        self.boxsize = self.vs_boxsizes[2]
-                        self.cansize = self.vs_cansizes[2]
-                        self.probability = self.vs_base_probabilities[2]
-                        self.base_probability = self.vs_base_probabilities[3]
-                    elif self.event_type == 2:
-                        self.remaining = self.tl_boxsizes[2]
-                        self.can_remaining = self.tl_cansizes[2]
-                        self.boxsize = self.tl_boxsizes[2]
-                        self.cansize = self.tl_cansizes[2]
-                        self.probability = self.tl_base_probabilities[2]
-                        self.base_probability = self.tl_base_probabilities[3]
-                elif self.boxnum == 4:
-                    if self.event_type == 1:
-                        self.remaining = self.vs_boxsizes[3]
-                        self.can_remaining = self.vs_cansizes[3]
-                        self.boxsize = self.vs_boxsizes[3]
-                        self.cansize = self.vs_cansizes[3]
-                        self.probability = self.vs_base_probabilities[3]
-                        self.base_probability = self.vs_base_probabilities[4]
-                    elif self.event_type == 2:
-                        self.remaining = self.tl_boxsizes[3]
-                        self.can_remaining = self.tl_cansizes[3]
-                        self.boxsize = self.tl_boxsizes[3]
-                        self.cansize = self.tl_cansizes[3]
-                        self.probability = self.tl_base_probabilities[3]
-                        self.base_probability = self.tl_base_probabilities[4]
-                elif self.boxnum == 5:
-                    if self.event_type == 1:
-                        self.remaining = self.vs_boxsizes[4]
-                        self.can_remaining = self.vs_cansizes[4]
-                        self.boxsize = self.vs_boxsizes[4]
-                        self.cansize = self.vs_cansizes[4]
-                        self.probability = self.vs_base_probabilities[4]
-                        self.base_probability = self.vs_base_probabilities[5]
-                    elif self.event_type == 2:
-                        self.remaining = self.tl_boxsizes[4]
-                        self.can_remaining = self.tl_cansizes[4]
-                        self.boxsize = self.tl_boxsizes[4]
-                        self.cansize = self.tl_cansizes[4]
-                        self.probability = self.tl_base_probabilities[4]
-                        self.base_probability = self.tl_base_probabilities[5]
-                elif self.boxnum > 5:
-                    if self.event_type == 1:
-                        self.remaining = self.vs_boxsizes[5]
-                        self.can_remaining = self.vs_cansizes[5]
-                        self.boxsize = self.vs_boxsizes[5]
-                        self.cansize = self.vs_cansizes[5]
-                        self.probability = self.vs_base_probabilities[5]
-                        self.base_probability = self.vs_base_probabilities[5]
-                    elif self.event_type == 2:
-                        self.remaining = self.tl_boxsizes[5]
-                        self.can_remaining = self.tl_cansizes[5]
-                        self.boxsize = self.tl_boxsizes[5]
-                        self.cansize = self.tl_cansizes[5]
-                        self.probability = self.tl_base_probabilities[5]
-                        self.base_probability = self.tl_base_probabilities[5]
-                self.value = 4
-                for item in self.children:
-                    item.disabled = False
-                g_embed = gen_embed(title=f'Gift Box #{self.boxnum}',
-                                    content=(f"**{self.remaining}/{self.boxsize} remaining**\n"
-                                             f"{self.can_remaining}/{self.cansize} cans remaining\n\n"
-                                             f"Should I pull? **Yes**"
-                                             f" ({round(self.probability * 100, 2)}% probability)"))
-                g_embed.set_footer(text='Subtracting one can will not subtract from the total remaining.')
-                await interaction.response.edit_message(embed=g_embed, view=self)
-
-            @discord.ui.button(label='Cancel', style=discord.ButtonStyle.danger)
-            async def cancel(self, button: discord.ui.Button, interaction: discord.Interaction):
-                await interaction.response.send_message('Closing gift box calculator.', ephemeral=True)
-                for item in self.children:
-                    item.disabled = True
-                self.value = False
-                self.stop()
-
-            @discord.ui.button(label='Manual Input', style=discord.ButtonStyle.secondary, row=1)
-            async def manualinput(self, button: discord.ui.Button, interaction: discord.Interaction):
-                async def remaining_prompt(attempts=1, sent_messages=[]):
-                    def check(m):
-                        return m.author == self.context.author and m.channel == self.context.channel
-
-                    g_sent_message = await self.context.send(embed=gen_embed(
-                        title='Items remaining',
-                        content='How many items are remaining in the box?'))
-                    sent_messages.append(g_sent_message)
-                    try:
-                        mmsg = await self.context.bot.wait_for('message', check=check, timeout=60.0)
-                    except asyncio.TimeoutError:
-                        await self.context.send(embed=gen_embed(title='Gift box Cancelled',
-                                                                content='Gift box calculator cancelled.'))
-                        return
-                    if re.match(r'^\d+$', mmsg.clean_content):
-                        if validators.between(int(mmsg.clean_content), min=0, max=self.boxsize):
-                            for message in sent_messages:
-                                await message.delete()
-                            await mmsg.delete()
-                            return int(mmsg.clean_content)
-                        elif attempts > 3:
-                            raise discord.ext.commands.BadArgument()
-                        else:
-                            g_sent_message = await self.context.send(embed=gen_embed(
-                                title='Items remaining',
-                                content=(f"Sorry, I didn't catch that or it was an invalid format.\n"
-                                         f"Please enter a number from 1-{self.boxsize}.")))
-                            sent_messages.append(g_sent_message)
-                            attempts += 1
-                            return await remaining_prompt(attempts, sent_messages)
-                    elif attempts > 3:
-                        raise discord.ext.commands.BadArgument()
-                    else:
-                        g_sent_message = await self.context.send(embed=gen_embed(
-                            title='Items remaining',
-                            content=(f"Sorry, I didn't catch that or it was an invalid format.\n"
-                                     f"Please enter a number from 1-{self.boxsize}.")))
-                        sent_messages.append(g_sent_message)
-                        attempts += 1
-                        return await remaining_prompt(attempts, sent_messages)
-
-                await interaction.response.defer()
-                self.remaining = await remaining_prompt()
-                if self.remaining != 0:
-                    self.probability = self.can_remaining / self.remaining
-                else:
-                    self.probability = 0
-                    self.children[1].disabled = True
-                    self.children[2].disabled = True
-                if self.probability > self.base_probability:
-                    g_embed = gen_embed(title=f'Gift Box #{self.boxnum}',
-                                        content=(f"**{self.remaining}/{self.boxsize} remaining**\n"
-                                                 f"{self.can_remaining}/{self.cansize} cans remaining\n\n"
-                                                 f"Should I pull? **Yes**"
-                                                 f"({round(self.probability * 100, 2)}% probability)"))
-                else:
-                    g_embed = gen_embed(title=f'Gift Box #{self.boxnum}',
-                                        content=(f"**{self.remaining}/{self.boxsize} remaining**\n"
-                                                 f"{self.can_remaining}/{self.cansize} cans remaining\n\n"
-                                                 f"Should I pull? **No**"
-                                                 f"({round(self.probability * 100, 2)}% probability)"))
-                g_embed.set_footer(text='Subtracting one can will not subtract from the total remaining.')
-                await interaction.edit_original_response(embed=g_embed, view=self)
-
-        await ctx.interaction.response.defer()
-        giftbox_view = GiftboxMenu(ctx, giftbox, event)
-        current_probability = giftbox_view.can_remaining / giftbox_view.remaining
-        embed = gen_embed(title=f'Gift Box #{giftbox}',
-                          content=(f"**{giftbox_view.remaining}/{giftbox_view.boxsize} remaining**\n"
-                                   f"{giftbox_view.can_remaining}/{giftbox_view.cansize} cans remaining\n\n"
-                                   f"Should I pull? **Yes** ({round(current_probability * 100, 2)}% probability)"))
-        embed.set_footer(text='Subtracting one can will not subtract from the total remaining.')
-        sent_message = await ctx.interaction.followup.send(embed=embed, view=giftbox_view)
-        await giftbox_view.wait()
-        await sent_message.edit(view=giftbox_view)
-
-    refill = SlashCommandGroup('refill', 'Refill related commands')
-
-    @refill.command(name='counter',
-                    description='Refill counter to help you keep track of when to refill')
-    async def refillcounter(self,
-                            ctx: discord.ApplicationContext,
-                            games: Option(int, '# of games left in the set',
-                                          min_value=1,
-                                          max_value=30,
-                                          default=30,
-                                          required=False)):
-        class RefillCounter(discord.ui.View):
-            def __init__(self, context, game_count):
-                super().__init__(timeout=900.0)
-                self.context = context
-                self.counter = game_count
-                self.value = False
-
-            async def end_interaction(self,
-                                      interaction: discord.Interaction):
-                view = discord.ui.View.from_message(interaction.message)
-                for child in view.children:
-                    child.disabled = True
-
-                self.value = True
-                await interaction.message.edit(view=view)
-                self.stop()
-
-            @discord.ui.button(emoji='❌', style=discord.ButtonStyle.secondary)
-            async def exit(self, button: discord.ui.Button, interaction: discord.Interaction):
-                await interaction.response.defer()
-                await self.end_interaction(interaction)
-
-            @discord.ui.button(emoji='🔄', style=discord.ButtonStyle.secondary)
-            async def refill(self, button: discord.ui.Button, interaction: discord.Interaction):
-                await interaction.response.defer()
-                self.counter = 30
-                new_embed = gen_embed(title='Refill Counter',
-                                      content=f'{self.counter} games left in the set')
-                await interaction.message.edit(embed=new_embed)
-
-            @discord.ui.button(emoji='➕', style=discord.ButtonStyle.green)
-            async def plus(self, button: discord.ui.Button, interaction: discord.Interaction):
-                await interaction.response.defer()
-                self.counter += 1
-                new_embed = gen_embed(title='Refill Counter',
-                                      content=f'{self.counter} games left in the set')
-                await interaction.message.edit(embed=new_embed)
-
-            @discord.ui.button(emoji='➖', style=discord.ButtonStyle.danger)
-            async def minus(self, button: discord.ui.Button, interaction: discord.Interaction):
-                await interaction.response.defer()
-                self.counter -= 1
-                new_embed = gen_embed(title='Refill Counter',
-                                      content=f'{self.counter} games left in the set')
-                await interaction.message.edit(embed=new_embed)
-
-        await ctx.interaction.response.defer()
-
-        try:
-            refill_running = self.refill_running[str(ctx.interaction.channel.id)]
-        except KeyError:
-            self.refill_running[str(ctx.interaction.channel.id)] = False
-
-        if self.refill_running[str(ctx.interaction.channel.id)]:
-            embed = gen_embed(title='Refill Counter',
-                              content=f'A counter is already running in this channel!')
-            sent_message = await ctx.interaction.followup.send(embed=embed, ephemeral=True)
-            return
-        refillcounter_view = RefillCounter(ctx, games)
-        embed = gen_embed(title='Refill Counter',
-                          content=f'{games} games left in the set')
-        sent_message = await ctx.interaction.followup.send(embed=embed, view=refillcounter_view)
-        self.refill_running[str(ctx.interaction.channel.id)] = True
-        while refillcounter_view.value is not True:
-            if ctx.channel.last_message.id != sent_message.id:
-                await sent_message.delete()
-                embed = gen_embed(title='Refill Counter',
-                                  content=f'{refillcounter_view.counter} games left in the set')
-                sent_message = await ctx.channel.send(embed=embed, view=refillcounter_view)
-            await asyncio.sleep(5)
-        self.refill_running[str(ctx.interaction.channel.id)] = False
-
-    trackfiller = SlashCommandGroup('trackfiller', 'Filler tracking for tiering servers',
-                                    default_member_permissions=discord.Permissions(manage_roles=True))
-
-    @trackfiller.command(name='enable',
-                         description='Enable filler tracking for the server')
-    @default_permissions(manage_roles=True)
-    async def trackfiller_enable(self,
-                                 ctx: discord.ApplicationContext):
-        await ctx.interaction.response.defer(ephemeral=True)
-        document = await db.fillers.find_one({'server_id': ctx.interaction.guild_id})
-        if document:
-            await db.fillers.update_one({'server_id': ctx.interaction.guild_id},
-                                        {"$set": {"enabled": True}})
-        else:
-            post = {'server_id': ctx.interaction.guild_id,
-                    'fillers': [],
-                    'roles': [],
-                    'enabled': True
-                    }
-            await db.fillers.insert_one(post)
-        await ctx.interaction.followup.send(embed=gen_embed(title='trackfiller',
-                                                            content=f'Enabled trackfiller for {ctx.guild.name}.'),
-                                            ephemeral=True)
-        await ctx.interaction.followup.send(content=('How do I set up who can add fillers?\n'
-                                                     'https://files.s-neon.xyz/share/2022-05-25%2015-18-21.mp4'),
-                                            ephemeral=True)
-        await ctx.interaction.followup.send(content=('How do I add a filler?\n'
-                                                     'https://files.s-neon.xyz/share/DiscordPTB_QkOPfrdP4L.png'),
-                                            ephemeral=True)
-
-    @trackfiller.command(name='disable',
-                         description='Disable filler tracking for the server')
-    @default_permissions(manage_roles=True)
-    async def trackfiller_disable(self,
-                                  ctx: discord.ApplicationContext):
-        await ctx.interaction.response.defer(ephemeral=True)
-        document = await db.fillers.find_one({'server_id': ctx.interaction.guild_id})
-        if document:
-            await db.fillers.update_one({'server_id': ctx.interaction.guild_id},
-                                        {"$set": {"enabled": False}})
-        else:
-            post = {'server_id': ctx.interaction.guild_id,
-                    'fillers': [],
-                    'roles': [],
-                    'enabled': False
-                    }
-            await db.fillers.insert_one(post)
-        await ctx.interaction.followup.send(embed=gen_embed(title='trackfiller',
-                                                            content=f'Disabled trackfiller for {ctx.guild.name}.'),
-                                            ephemeral=True)
-
-    @trackfiller.command(name='help',
-                         description='Display help on how to use the filler tracking feature')
-    async def trackfiller_help(self,
-                               ctx: discord.ApplicationContext):
-        await ctx.respond(content=('How do I add a filler?\n'
-                                   'https://files.s-neon.xyz/share/DiscordPTB_QkOPfrdP4L.png'),
-                          ephemeral=True)
-
-    @trackfiller.command(name='list',
-                         description='List fillers')
-    async def trackfiller_list(self,
-                               ctx: discord.ApplicationContext):
-        await ctx.interaction.response.defer()
-        fillers = []
-        document = await db.fillers.find_one({'server_id': ctx.guild.id})
-        for memberid in document['fillers']:
-            member = await self.bot.fetch_user(memberid)
-            fillers.append(member.name)
-        fillers_str = ", ".join(fillers)
-        embed = gen_embed(title='List of Fillers',
-                          content=f'{fillers_str}')
-        await embed_splitter(embed=embed, destination=ctx.channel, followup=ctx.interaction.followup)
-
-    @trackfiller.command(name='remove',
-                         description='Remove a filler from the list')
-    @default_permissions(manage_roles=True)
-    async def trackfiller_remove(self,
-                                 ctx: discord.ApplicationContext,
-                                 user: Option(discord.Member, 'Filler to remove')):
-        await ctx.interaction.response.defer(ephemeral=True)
-        document = await db.fillers.find_one({'server_id': ctx.guild.id})
-        fillers = document['fillers']
-        fillers.remove(user.id)
-        await db.fillers.update_one({'server_id': ctx.guild.id}, {"$set": {"fillers": fillers}})
-        await ctx.interaction.followup.send(embed=
-                                            gen_embed(title='Remove Filler',
-                                                      content=f'{user.name}#{user.discriminator} removed.'),
-                                            ephemeral=True)
-
-    @trackfiller.command(name='clear',
-                         description='Clear the filler list')
-    @default_permissions(manage_roles=True)
-    async def trackfiller_clear(self,
-                                ctx: discord.ApplicationContext):
-        await ctx.interaction.response.defer(ephemeral=True)
-        await db.fillers.update_one({'server_id': ctx.guild.id}, {"$set": {"fillers": []}})
-        await ctx.interaction.followup.send(embed=
-                                            gen_embed(title='Clear Filler List',
-                                                      content=f'The filler list has been cleared.'),
-                                            ephemeral=True)
-
-    @user_command(name='Add User to Filler List')
-    @default_permissions()
-    async def addfiller(self,
-                        ctx: discord.ApplicationContext,
-                        member: discord.Member):
-        document = await db.fillers.find_one({'server_id': ctx.guild.id})
-        if document:
-            fillers = document['fillers']
-            enabled = document['enabled']
-        else:
-            fillers = []
-            enabled = False
-        if enabled:
-            if member.id in fillers:
-                await ctx.respond(content='User is already in the list of fillers.', ephemeral=True)
-            else:
-                fillers.append(member.id)
-                log.info(f'Appended user to filler list for {ctx.guild.name}')
-                await db.fillers.update_one({'server_id': ctx.guild.id},
-                                            {"$set": {"fillers": fillers, "roles": []}}, upsert=True)
-                await ctx.respond(content=f"Added {member.name} to the list of fillers.", ephemeral=True)
-        else:
-            await ctx.respond(content='This is not enabled for this server.', ephemeral=True)
+    # refill = SlashCommandGroup('refill', 'Refill related commands')
+    #
+    # @refill.command(name='counter',
+    #                 description='Refill counter to help you keep track of when to refill')
+    # async def refillcounter(self,
+    #                         ctx: discord.ApplicationContext,
+    #                         games: Option(int, '# of games left in the set',
+    #                                       min_value=1,
+    #                                       max_value=30,
+    #                                       default=30,
+    #                                       required=False)):
+    #     class RefillCounter(discord.ui.View):
+    #         def __init__(self, context, game_count):
+    #             super().__init__(timeout=900.0)
+    #             self.context = context
+    #             self.counter = game_count
+    #             self.value = False
+    #
+    #         async def end_interaction(self,
+    #                                   interaction: discord.Interaction):
+    #             view = discord.ui.View.from_message(interaction.message)
+    #             for child in view.children:
+    #                 child.disabled = True
+    #
+    #             self.value = True
+    #             await interaction.message.edit(view=view)
+    #             self.stop()
+    #
+    #         @discord.ui.button(emoji='❌', style=discord.ButtonStyle.secondary)
+    #         async def exit(self, button: discord.ui.Button, interaction: discord.Interaction):
+    #             await interaction.response.defer()
+    #             await self.end_interaction(interaction)
+    #
+    #         @discord.ui.button(emoji='🔄', style=discord.ButtonStyle.secondary)
+    #         async def refill(self, button: discord.ui.Button, interaction: discord.Interaction):
+    #             await interaction.response.defer()
+    #             self.counter = 30
+    #             new_embed = gen_embed(title='Refill Counter',
+    #                                   content=f'{self.counter} games left in the set')
+    #             await interaction.message.edit(embed=new_embed)
+    #
+    #         @discord.ui.button(emoji='➕', style=discord.ButtonStyle.green)
+    #         async def plus(self, button: discord.ui.Button, interaction: discord.Interaction):
+    #             await interaction.response.defer()
+    #             self.counter += 1
+    #             new_embed = gen_embed(title='Refill Counter',
+    #                                   content=f'{self.counter} games left in the set')
+    #             await interaction.message.edit(embed=new_embed)
+    #
+    #         @discord.ui.button(emoji='➖', style=discord.ButtonStyle.danger)
+    #         async def minus(self, button: discord.ui.Button, interaction: discord.Interaction):
+    #             await interaction.response.defer()
+    #             self.counter -= 1
+    #             new_embed = gen_embed(title='Refill Counter',
+    #                                   content=f'{self.counter} games left in the set')
+    #             await interaction.message.edit(embed=new_embed)
+    #
+    #     await ctx.interaction.response.defer()
+    #
+    #     try:
+    #         refill_running = self.refill_running[str(ctx.interaction.channel.id)]
+    #     except KeyError:
+    #         self.refill_running[str(ctx.interaction.channel.id)] = False
+    #
+    #     if self.refill_running[str(ctx.interaction.channel.id)]:
+    #         embed = gen_embed(title='Refill Counter',
+    #                           content=f'A counter is already running in this channel!')
+    #         sent_message = await ctx.interaction.followup.send(embed=embed, ephemeral=True)
+    #         return
+    #     refillcounter_view = RefillCounter(ctx, games)
+    #     embed = gen_embed(title='Refill Counter',
+    #                       content=f'{games} games left in the set')
+    #     sent_message = await ctx.interaction.followup.send(embed=embed, view=refillcounter_view)
+    #     self.refill_running[str(ctx.interaction.channel.id)] = True
+    #     while refillcounter_view.value is not True:
+    #         if ctx.channel.last_message.id != sent_message.id:
+    #             await sent_message.delete()
+    #             embed = gen_embed(title='Refill Counter',
+    #                               content=f'{refillcounter_view.counter} games left in the set')
+    #             sent_message = await ctx.channel.send(embed=embed, view=refillcounter_view)
+    #         await asyncio.sleep(5)
+    #     self.refill_running[str(ctx.interaction.channel.id)] = False
+    #
+    # trackfiller = SlashCommandGroup('trackfiller', 'Filler tracking for tiering servers',
+    #                                 default_member_permissions=discord.Permissions(manage_roles=True))
+    #
+    # @trackfiller.command(name='enable',
+    #                      description='Enable filler tracking for the server')
+    # @default_permissions(manage_roles=True)
+    # async def trackfiller_enable(self,
+    #                              ctx: discord.ApplicationContext):
+    #     await ctx.interaction.response.defer(ephemeral=True)
+    #     document = await db.fillers.find_one({'server_id': ctx.interaction.guild_id})
+    #     if document:
+    #         await db.fillers.update_one({'server_id': ctx.interaction.guild_id},
+    #                                     {"$set": {"enabled": True}})
+    #     else:
+    #         post = {'server_id': ctx.interaction.guild_id,
+    #                 'fillers': [],
+    #                 'roles': [],
+    #                 'enabled': True
+    #                 }
+    #         await db.fillers.insert_one(post)
+    #     await ctx.interaction.followup.send(embed=gen_embed(title='trackfiller',
+    #                                                         content=f'Enabled trackfiller for {ctx.guild.name}.'),
+    #                                         ephemeral=True)
+    #     await ctx.interaction.followup.send(content=('How do I set up who can add fillers?\n'
+    #                                                  'https://files.s-neon.xyz/share/2022-05-25%2015-18-21.mp4'),
+    #                                         ephemeral=True)
+    #     await ctx.interaction.followup.send(content=('How do I add a filler?\n'
+    #                                                  'https://files.s-neon.xyz/share/DiscordPTB_QkOPfrdP4L.png'),
+    #                                         ephemeral=True)
+    #
+    # @trackfiller.command(name='disable',
+    #                      description='Disable filler tracking for the server')
+    # @default_permissions(manage_roles=True)
+    # async def trackfiller_disable(self,
+    #                               ctx: discord.ApplicationContext):
+    #     await ctx.interaction.response.defer(ephemeral=True)
+    #     document = await db.fillers.find_one({'server_id': ctx.interaction.guild_id})
+    #     if document:
+    #         await db.fillers.update_one({'server_id': ctx.interaction.guild_id},
+    #                                     {"$set": {"enabled": False}})
+    #     else:
+    #         post = {'server_id': ctx.interaction.guild_id,
+    #                 'fillers': [],
+    #                 'roles': [],
+    #                 'enabled': False
+    #                 }
+    #         await db.fillers.insert_one(post)
+    #     await ctx.interaction.followup.send(embed=gen_embed(title='trackfiller',
+    #                                                         content=f'Disabled trackfiller for {ctx.guild.name}.'),
+    #                                         ephemeral=True)
+    #
+    # @trackfiller.command(name='help',
+    #                      description='Display help on how to use the filler tracking feature')
+    # async def trackfiller_help(self,
+    #                            ctx: discord.ApplicationContext):
+    #     await ctx.respond(content=('How do I add a filler?\n'
+    #                                'https://files.s-neon.xyz/share/DiscordPTB_QkOPfrdP4L.png'),
+    #                       ephemeral=True)
+    #
+    # @trackfiller.command(name='list',
+    #                      description='List fillers')
+    # async def trackfiller_list(self,
+    #                            ctx: discord.ApplicationContext):
+    #     await ctx.interaction.response.defer()
+    #     fillers = []
+    #     document = await db.fillers.find_one({'server_id': ctx.guild.id})
+    #     for memberid in document['fillers']:
+    #         member = await self.bot.fetch_user(memberid)
+    #         fillers.append(member.name)
+    #     fillers_str = ", ".join(fillers)
+    #     embed = gen_embed(title='List of Fillers',
+    #                       content=f'{fillers_str}')
+    #     await embed_splitter(embed=embed, destination=ctx.channel, followup=ctx.interaction.followup)
+    #
+    # @trackfiller.command(name='remove',
+    #                      description='Remove a filler from the list')
+    # @default_permissions(manage_roles=True)
+    # async def trackfiller_remove(self,
+    #                              ctx: discord.ApplicationContext,
+    #                              user: Option(discord.Member, 'Filler to remove')):
+    #     await ctx.interaction.response.defer(ephemeral=True)
+    #     document = await db.fillers.find_one({'server_id': ctx.guild.id})
+    #     fillers = document['fillers']
+    #     fillers.remove(user.id)
+    #     await db.fillers.update_one({'server_id': ctx.guild.id}, {"$set": {"fillers": fillers}})
+    #     await ctx.interaction.followup.send(embed=
+    #                                         gen_embed(title='Remove Filler',
+    #                                                   content=f'{user.name}#{user.discriminator} removed.'),
+    #                                         ephemeral=True)
+    #
+    # @trackfiller.command(name='clear',
+    #                      description='Clear the filler list')
+    # @default_permissions(manage_roles=True)
+    # async def trackfiller_clear(self,
+    #                             ctx: discord.ApplicationContext):
+    #     await ctx.interaction.response.defer(ephemeral=True)
+    #     await db.fillers.update_one({'server_id': ctx.guild.id}, {"$set": {"fillers": []}})
+    #     await ctx.interaction.followup.send(embed=
+    #                                         gen_embed(title='Clear Filler List',
+    #                                                   content=f'The filler list has been cleared.'),
+    #                                         ephemeral=True)
+    #
+    # @user_command(name='Add User to Filler List')
+    # @default_permissions()
+    # async def addfiller(self,
+    #                     ctx: discord.ApplicationContext,
+    #                     member: discord.Member):
+    #     document = await db.fillers.find_one({'server_id': ctx.guild.id})
+    #     if document:
+    #         fillers = document['fillers']
+    #         enabled = document['enabled']
+    #     else:
+    #         fillers = []
+    #         enabled = False
+    #     if enabled:
+    #         if member.id in fillers:
+    #             await ctx.respond(content='User is already in the list of fillers.', ephemeral=True)
+    #         else:
+    #             fillers.append(member.id)
+    #             log.info(f'Appended user to filler list for {ctx.guild.name}')
+    #             await db.fillers.update_one({'server_id': ctx.guild.id},
+    #                                         {"$set": {"fillers": fillers, "roles": []}}, upsert=True)
+    #             await ctx.respond(content=f"Added {member.name} to the list of fillers.", ephemeral=True)
+    #     else:
+    #         await ctx.respond(content='This is not enabled for this server.', ephemeral=True)
 
 
 def setup(bot):
