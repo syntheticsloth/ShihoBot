@@ -1,6 +1,6 @@
 config.json
 *.pyc
-*.log
+# *.log
 *.log.last
 warn_db.csv
 venv
