@@ -2,7 +2,7 @@ MAIN_VERSION = '2.0.0'
 SUB_VERSION = '_a3'
 VERSION = MAIN_VERSION + SUB_VERSION
 NAME = 'Shiho'
-ICONURL = 'https://svenxiety.xyz/junk/shiho-18.png'
+THUMB = 'https://svenxiety.xyz/junk/shiho-18.png'
 
 EXTENSIONS = {'errorhandler', 'help', 'listeners', 'misc', 'test'}
 TIMEZONE_DICT = {'ACDT': 'UTC+10:30', 'ACST': 'UTC+09:30', 'ACT': 'UTC-05', 'ADT': 'UTC-03', 'AEDT': 'UTC+11',

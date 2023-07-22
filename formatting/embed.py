@@ -3,7 +3,7 @@ import discord
 from typing import List
 
 
-def gen_embed(name=None, icon_url=None, title=None, content=None, colour=None):
+def gen_embed(name=None, icon_url=None, title=None, content=None, colour=None, thumb_url=None):
     """Provides a basic template for embeds"""
     if colour:
         e = discord.Embed(colour=colour)
@@ -14,6 +14,7 @@ def gen_embed(name=None, icon_url=None, title=None, content=None, colour=None):
     e.set_footer(text="Don't say I didn't warn you")
     e.title = title
     e.description = content
+    e.set_thumbnail(thumb_url)
     return e
 
 
