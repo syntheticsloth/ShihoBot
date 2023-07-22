@@ -501,7 +501,7 @@ class Tiering(commands.Cog):
         if roomcode:
             if not re.search(r'^\d{5}$', roomcode):
                 await ctx.channel.edit(name=f'{nameprefix}xxxxx')
-                await ctx.interaction.followup.send(embed=gen_embed(title='Edit Room',
+                await ctx.interaction.followup.send(embed=gen_embed(title='Just this once',
                                                                     content=f'Closed room'))
                 return
             if spots:
@@ -512,7 +512,7 @@ class Tiering(commands.Cog):
 
             new_room_title = f'{nameprefix}{roomcode}{namesuffix}'
             await ctx.interaction.channel.edit(name=new_room_title)
-            await ctx.interaction.followup.send(embed=gen_embed(title='Edit Room',
+            await ctx.interaction.followup.send(embed=gen_embed(title='Just this once',
                                                                 content=f'Changed name to {new_room_title}'))
 
         elif spots:
@@ -527,11 +527,11 @@ class Tiering(commands.Cog):
                 namesuffix = '-f'
             new_room_title = f'{nameprefix}{roomcode}{namesuffix}'
             await ctx.interaction.channel.edit(name=new_room_title)
-            await ctx.interaction.followup.send(embed=gen_embed(title='Edit Room',
+            await ctx.interaction.followup.send(embed=gen_embed(title='Just this once',
                                                                 content=f'Changed open spots to {spots} spots'))
         else:
             await ctx.channel.edit(name=f'{nameprefix}xxxxx')
-            await ctx.interaction.followup.send(embed=gen_embed(title='Edit Room',
+            await ctx.interaction.followup.send(embed=gen_embed(title='Just this once',
                                                                 content=f'Closed room'))
 
     # @discord.slash_command(name='giftbox',
