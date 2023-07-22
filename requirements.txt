@@ -24,6 +24,5 @@ kaleido==0.2.1
 pillow
 git+https://github.com/Rapptz/discord.py
 PyNaCl==1.3.0
-dnspython==1.16.0
 pandas
 async-timeout==3.0.1
