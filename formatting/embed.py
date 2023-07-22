@@ -14,7 +14,8 @@ def gen_embed(name=None, icon_url=None, title=None, content=None, colour=None, t
     e.set_footer(text="Don't say I didn't warn you")
     e.title = title
     e.description = content
-    e.set_thumbnail(url=thumb_url)
+    if thumb_url:
+        e.set_thumbnail(url=thumb_url)
     return e
 
 
