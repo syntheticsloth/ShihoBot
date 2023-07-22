@@ -21,15 +21,20 @@ from formatting.constants import NAME
 from formatting.constants import FILTER
 
 # read config information
-with open("config.json") as file:
-    config_json = json.load(file)
-    TOKEN = config_json["token"]
-    DBUSER = config_json['db_user']
-    DBPASSWORD = config_json['db_password']
-    TWTTOKEN = config_json['twitter_token']
-    TWTSECRET = config_json['twitter_secret']
-    CONSUMER_KEY = config_json['consumer_key']
-    CONSUMER_SECRET = config_json['consumer_secret']
+# with open("config.json") as file:
+#     config_json = json.load(file)
+#     TOKEN = config_json["token"]
+#     DBUSER = config_json['db_user']
+#     DBPASSWORD = config_json['db_password']
+#     TWTTOKEN = config_json['twitter_token']
+#     TWTSECRET = config_json['twitter_secret']
+#     CONSUMER_KEY = config_json['consumer_key']
+#     CONSUMER_SECRET = config_json['consumer_secret']
+
+# read heroku env variables
+TOKEN = os.getenv("token")
+DBUSER = os.getenv('db_user')
+DBPASSWORD = os.getenv('db_password')
 
 log = logging.getLogger(__name__)
 log.setLevel(logging.INFO)
@@ -41,8 +46,12 @@ intents = discord.Intents.default()
 intents.members = True
 intents.message_content = True
 
-databaseName = config_json["database_name"]
-databaseSub = config_json["database_sub"]
+# databaseName = config_json["database_name"]
+# databaseSub = config_json["database_sub"]
+
+# read heroku env variables
+databaseName = os.getenv("database_name")
+databaseSub = os.getenv("database_sub")
 
 default_prefix = "%"
 prefix_list = {}
@@ -54,7 +63,7 @@ prefix_list = {}
 # set up fancy format logging
 def _setup_logging():
     shandler = logging.StreamHandler()
-    shandler.setLevel(config_json["log_level"])
+    shandler.setLevel(os.getenv("log_level"))
     # noinspection PyTypeChecker
     shandler.setFormatter(colorlog.LevelFormatter(
         fmt={
@@ -90,9 +99,9 @@ def _setup_logging():
 
 _setup_logging()
 
-log.info(f"Set logging level to {config_json['log_level']}")
+log.info(f"Set logging level to {os.getenv('log_level')}")
 
-if config_json["debug_mode"]:
+if os.getenv("debug_mode"):
     debuglog = logging.getLogger('discord')
     debuglog.setLevel(logging.DEBUG)
     dhandler = logging.FileHandler(filename='logs/discord.log', encoding='utf-8', mode='w')
