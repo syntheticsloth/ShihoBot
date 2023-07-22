@@ -10,7 +10,7 @@ from discord.commands import Option, OptionChoice, SlashCommandGroup, user_comma
 from discord.commands.permissions import default_permissions
 
 from formatting.embed import gen_embed, embed_splitter
-from formatting.constants import ICONURL
+from formatting.constants import THUMB
 from __main__ import log, db
 
 
