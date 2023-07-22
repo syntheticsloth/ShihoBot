@@ -75,7 +75,7 @@ class Tiering(commands.Cog):
             dest_channel = ctx.interaction.channel
         embed = gen_embed(
             name=f"{ctx.guild.name}",
-            icon_url=ctx.guild.icon.url,
+            thumb_url=ctx.guild.icon.url,
             title='Tiering Etiqeutte and Efficiency',
             content='Efficiency guidelines taken from LH 2.0, originally made by Binh and edited by doom_chicken.')
         embed.set_image(url='https://files.s-neon.xyz/share/bandori-efficiency.png')
@@ -142,7 +142,7 @@ class Tiering(commands.Cog):
             dest_channel = ctx.interaction.channel
         embed = gen_embed(
             name=f"{ctx.guild.name}",
-            icon_url=ctx.guild.icon.url,
+            thumb_url=ctx.guild.icon.url,
             title='Versus Live Tiering Info',
             content=('Graciously stolen from **Zia** & **Blur** and the **Play Act! Challenge*Audition** server,'
                      ' edited by **Neon**'))
@@ -210,7 +210,7 @@ class Tiering(commands.Cog):
             dest_channel = ctx.interaction.channel
         embed = gen_embed(
             name=f"{ctx.guild.name}",
-            icon_url=ctx.guild.icon.url,
+            thumb_url=ctx.guild.icon.url,
             title='Carpal Tunnel & Tiering Wellness',
             content=('Graciously created by **Aris/Nio**, originally for PRSK, edited by **Neon**'
                      '\n***Disclaimer: This is not medical advice. This is for educational purposes only and is my'
@@ -310,7 +310,7 @@ class Tiering(commands.Cog):
             dest_channel = ctx.interaction.channel
         embed = gen_embed(
             name=f"{ctx.guild.name}",
-            icon_url=ctx.guild.icon.url,
+            thumb_url=ctx.guild.icon.url,
             title='New Tiering Member Tips & Tricks',
             content=('Graciously created by **feathers**, edited by **Neon**'
                      '\n\nHi all, I’m here to make a special additional post regarding new players, rules, and tiering'
@@ -427,7 +427,7 @@ class Tiering(commands.Cog):
         else:
             log.warning('Error: Invalid Channel')
             await ctx.send(embed=gen_embed(title='Invalid Channel',
-                                           icon_url=f'{THUMB}',
+                                           thumb_url=f'{THUMB}',
                                            content=(f'This is not a valid tiering channel. Please match the format'
                                                     ' g#-xxxxx to use this command.')))
             return
@@ -444,14 +444,14 @@ class Tiering(commands.Cog):
                 else:
                     log.warning('Error: Invalid Input')
                     await ctx.send(embed=gen_embed(title='Input Error',
-                                                   icon_url=f'{THUMB}',
+                                                   thumb_url=f'{THUMB}',
                                                    content=(f'That is not a valid option for this parameter. Open spots'
                                                             ' must be a value from 0-4.')))
                     return
 
             await ctx.channel.edit(name=f'{nameprefix}{room_num}{namesuffix}')
             await ctx.send(embed=gen_embed(title='room',
-                                           icon_url=f'{THUMB}',
+                                           thumb_url=f'{THUMB}',
                                            content=f'Changed room code to {room_num}'))
         else:
             if open_spots:
@@ -465,18 +465,18 @@ class Tiering(commands.Cog):
                 else:
                     log.warning('Error: Invalid Input')
                     await ctx.send(embed=gen_embed(title='Input Error',
-                                                   icon_url=f'{THUMB}',
+                                                   thumb_url=f'{THUMB}',
                                                    content=(f'That is not a valid option for this parameter. Open spots'
                                                             ' must be a value from 0-4.')))
                     return
                 await ctx.channel.edit(name=f'{nameprefix}{namesuffix}')
                 await ctx.send(embed=gen_embed(title='room',
-                                               icon_url=f'{THUMB}',
+                                               thumb_url=f'{THUMB}',
                                                content=f'Changed open spots to {open_spots}'))
             else:
                 await ctx.channel.edit(name=f'{nameprefix}xxxxx')
                 await ctx.send(embed=gen_embed(title='room',
-                                               icon_url=f'{THUMB}',
+                                               thumb_url=f'{THUMB}',
                                                content=f'Closed room'))
 
     @discord.slash_command(name='room',
@@ -497,7 +497,7 @@ class Tiering(commands.Cog):
             log.warning('Error: Invalid Channel')
             await ctx.interaction.response.send_message(embed=gen_embed(
                 title='Invalid Channel',
-                icon_url=f'{THUMB}',
+                thumb_url=f'{THUMB}',
                 content=f'This is not a valid tiering channel. Please match the format g#-xxxxx to use this command.'),
                 ephemeral=True)
             return
@@ -510,7 +510,7 @@ class Tiering(commands.Cog):
             if not re.search(r'^\d{5}$', roomcode):
                 await ctx.channel.edit(name=f'{nameprefix}xxxxx')
                 await ctx.interaction.followup.send(embed=gen_embed(title='Just this once',
-                                                                    icon_url=f'{THUMB}',
+                                                                    thumb_url=f'{THUMB}',
                                                                     content=f'Closed room'))
                 return
             if spots:
@@ -522,7 +522,7 @@ class Tiering(commands.Cog):
             new_room_title = f'{nameprefix}{roomcode}{namesuffix}'
             await ctx.interaction.channel.edit(name=new_room_title)
             await ctx.interaction.followup.send(embed=gen_embed(title='Just this once',
-                                                                icon_url=f'{THUMB}',
+                                                                thumb_url=f'{THUMB}',
                                                                 content=f'Changed name to {new_room_title}'))
 
         elif spots:
@@ -538,12 +538,12 @@ class Tiering(commands.Cog):
             new_room_title = f'{nameprefix}{roomcode}{namesuffix}'
             await ctx.interaction.channel.edit(name=new_room_title)
             await ctx.interaction.followup.send(embed=gen_embed(title='Just this once',
-                                                                icon_url=f'{THUMB}',
+                                                                thumb_url=f'{THUMB}',
                                                                 content=f'Changed open spots to {spots} spots'))
         else:
             await ctx.channel.edit(name=f'{nameprefix}xxxxx')
             await ctx.interaction.followup.send(embed=gen_embed(title='Just this once',
-                                                                icon_url=f'{THUMB}',
+                                                                thumb_url=f'{THUMB}',
                                                                 content=f'Closed room'))
 
     # @discord.slash_command(name='giftbox',
