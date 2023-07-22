@@ -26,10 +26,10 @@ from formatting.constants import FILTER
 #     TOKEN = config_json["token"]
 #     DBUSER = config_json['db_user']
 #     DBPASSWORD = config_json['db_password']
-#     TWTTOKEN = config_json['twitter_token']
-#     TWTSECRET = config_json['twitter_secret']
-#     CONSUMER_KEY = config_json['consumer_key']
-#     CONSUMER_SECRET = config_json['consumer_secret']
+    # TWTTOKEN = config_json['twitter_token']
+    # TWTSECRET = config_json['twitter_secret']
+    # CONSUMER_KEY = config_json['consumer_key']
+    # CONSUMER_SECRET = config_json['consumer_secret']
 
 # read heroku env variables
 TOKEN = os.getenv("token")
@@ -63,6 +63,8 @@ prefix_list = {}
 # set up fancy format logging
 def _setup_logging():
     shandler = logging.StreamHandler()
+    # shandler.setLevel(config_json["log_level"])
+    # heroku
     shandler.setLevel(os.getenv("log_level"))
     # noinspection PyTypeChecker
     shandler.setFormatter(colorlog.LevelFormatter(
@@ -99,8 +101,12 @@ def _setup_logging():
 
 _setup_logging()
 
+# log.info(f"Set logging level to {config_json['log_level']}")
+# heroku
 log.info(f"Set logging level to {os.getenv('log_level')}")
 
+# if config_json["debug_mode"]:
+# heroku
 if os.getenv("debug_mode"):
     debuglog = logging.getLogger('discord')
     debuglog.setLevel(logging.DEBUG)
@@ -145,11 +151,11 @@ mclient.get_io_loop = asyncio.get_running_loop
 db = mclient[databaseName]
 log.info(f'Database loaded.\n')
 
-# twitter API load
-t = twitter.Twitter(
-    auth=twitter.OAuth(TWTTOKEN, TWTSECRET, CONSUMER_KEY, CONSUMER_SECRET)
-)
-log.info('Twitter API Initialized.\n')
+# # twitter API load
+# t = twitter.Twitter(
+#     auth=twitter.OAuth(TWTTOKEN, TWTSECRET, CONSUMER_KEY, CONSUMER_SECRET)
+# )
+# log.info('Twitter API Initialized.\n')
 
 
 ##########
@@ -172,7 +178,7 @@ async def initialize_document(guild, id):
             'announcement_channel': None,
             'fun': True,
             'chat': False,
-            'delete_twitterfix': False,
+            # 'delete_twitterfix': False,
             'prefix': None,
             'blacklist': None,
             'whitelist': None,
@@ -585,45 +591,45 @@ async def _emoji_log(message):
             await db.emoji.update_one({"id": emoji.id}, {"$set": {'count': count}})
 
 
-async def twtfix(message):
-    message_link = message.clean_content
-    author = message.author
-    channel = message.channel
-    modified = False
-
-    twitter_links = re.findall(r'https://twitter\.com\S+', message_link)
-    if twitter_links:
-        document = await db.servers.find_one({"server_id": message.guild.id})
-        for twt_link in twitter_links:
-            log.info(f"[{message.guild.id}] Attempting to download tweet info from Twitter API")
-            twid = int(
-                re.sub(r'\?.*$', '', twt_link.rsplit("/", 1)[-1]))  # gets the tweet ID as a int from the passed url
-            tweet = t.statuses.show(_id=twid, tweet_mode="extended")
-
-            # Check to see if tweet has a video, if not, make the url passed to the VNF the first t.co link in the tweet
-            if 'extended_entities' in tweet:
-                if 'video_info' in tweet['extended_entities']['media'][0]:
-                    log.info("Modifying twitter link to fxtwitter")
-                    if document['delete_twitterfix']:
-                        message_link = re.sub(fr'https://twitter\.com/([^/]+/status/{str(twid)}\?\S*)',
-                                              fr'https://fxtwitter.com/\1', message_link)
-                        modified = True
-                    else:
-                        new_message_content = re.sub(r'https://twitter', 'https://fxtwitter', twt_link)
-                        try:
-                            await channel.send(content=new_message_content)
-                            log.info("Sent fxtwitter link")
-                        except Exception:
-                            return None
-        if document['delete_twitterfix'] and modified:
-            try:
-                await message.delete()
-                log.info("Deleted message, sending fxtwitter link")
-                return await channel.send(
-                    content=f"**{author.display_name}** ({author.name}#{author.discriminator}) sent:\n{message_link}")
-            except Exception:
-                return None
-    return None
+# async def twtfix(message):
+#     message_link = message.clean_content
+#     author = message.author
+#     channel = message.channel
+#     modified = False
+#
+#     twitter_links = re.findall(r'https://twitter\.com\S+', message_link)
+#     if twitter_links:
+#         document = await db.servers.find_one({"server_id": message.guild.id})
+#         for twt_link in twitter_links:
+#             log.info(f"[{message.guild.id}] Attempting to download tweet info from Twitter API")
+#             twid = int(
+#                 re.sub(r'\?.*$', '', twt_link.rsplit("/", 1)[-1]))  # gets the tweet ID as a int from the passed url
+#             tweet = t.statuses.show(_id=twid, tweet_mode="extended")
+#
+#             # Check to see if tweet has a video, if not, make the url passed to the VNF the first t.co link in the tweet
+#             if 'extended_entities' in tweet:
+#                 if 'video_info' in tweet['extended_entities']['media'][0]:
+#                     log.info("Modifying twitter link to fxtwitter")
+#                     if document['delete_twitterfix']:
+#                         message_link = re.sub(fr'https://twitter\.com/([^/]+/status/{str(twid)}\?\S*)',
+#                                               fr'https://fxtwitter.com/\1', message_link)
+#                         modified = True
+#                     else:
+#                         new_message_content = re.sub(r'https://twitter', 'https://fxtwitter', twt_link)
+#                         try:
+#                             await channel.send(content=new_message_content)
+#                             log.info("Sent fxtwitter link")
+#                         except Exception:
+#                             return None
+#         if document['delete_twitterfix'] and modified:
+#             try:
+#                 await message.delete()
+#                 log.info("Deleted message, sending fxtwitter link")
+#                 return await channel.send(
+#                     content=f"**{author.display_name}** ({author.name}#{author.discriminator}) sent:\n{message_link}")
+#             except Exception:
+#                 return None
+#     return None
 
 
 ##########
