@@ -59,6 +59,76 @@ class Tiering(commands.Cog):
     guides = SlashCommandGroup('guide', 'Commands to post various tiering guides',
                                default_member_permissions=discord.Permissions(manage_messages=True))
 
+    @guides.command(name='terms',
+                    description='Generates a list of terms for tiering')
+    @default_permissions(manage_messages=True)
+    async def termsguide(self,
+                              ctx: discord.ApplicationContext,
+                              channel: Option(discord.SlashCommandOptionType.channel,
+                                              ('Channel to post guide in. If not specified, '
+                                               'will post in current channel'),
+                                              required=False)):
+        await ctx.interaction.response.defer()
+        if channel:
+            dest_channel = channel
+        else:
+            dest_channel = ctx.interaction.channel
+        embed = gen_embed(
+            name=f"{ctx.guild.name}",
+            icon_url=ctx.guild.icon.url,
+            title='Tiering Terms',
+            content=("Tiering terms from R8SS, with additions and cleanup by synthsloth\n\n"
+                     "• **AP:** All Perfect\n"
+                     "• **Ascorer:** Accuracy Scorer card. \"Score +xx% for 5s and Score +xxx% until a GREAT or worse "
+                     "tap is recorded.\"\n"
+                     "• **BP:** Another name for Talent\n"
+                     "• **Boat:* To push someone out of their rank\n"
+                     "• **Cans/Boosts/Energy/Drinks:** The amount of energy you use per game. The higher its amount, "
+                     "the higher the rewards\n"
+                     "• **CC:** Cheerful Carnival\n"
+                     "• **DC:** Disconnect\n"
+                     "• **Doormat:** hitting AT LEAST 50% of the notes in a song, tapping every note during Fever "
+                     "Chance and dying after doing so. Allows the filler to do more things during filling\n"
+                     "• **Encore:** 6th skill activation. It's triggered by the player with the highest score (co-op) "
+                     "or your leader card (solo show)\n"
+                     "• **EP:** Event Points\n"
+                     "• **FC:** Full Combo\n"
+                     "• **Fes:** Colorful Festival, AKA Colofes or Colorfes\n"
+                     "• **Fillers:** People who help the tierer achieve their goal\n"
+                     "• **Grief:** Ruining something. Whether that's super fever, menuing or anything else\n"
+                     "• **Gscorer:** Another name for Ascorer (Accuracy Scorer)\n"
+                     "• **Healer:** Healer card. \"Life Recovery +350 and Score +x% for 5s.\"\n"
+                     "• **ISV:** Internal Skill Value\n"
+                     "• **Lscorer:** Life Scorer card. \"Score +x% for 5s if your Life is below 800 upon activating "
+                     "or Score +y% if above 800, and +1% every time your Life increases by 10 (max z%).\"\n"
+                     "• **MM:** Short for matchmaking\n"
+                     "• **MR:** Mastery Rank\n"
+                     "• **Menuing:** Tapping the screen after the song ends to play the next one as fast as possible\n"
+                     "• **Nats:** Energy that regenerates over time (1 energy per 30 mins)\n"
+                     "• **op:** Open, means the room is open and you can join\n"
+                     "• **Otsu:** Abbreviation of \"otsukaresama\", meaning \"good work\" or \"nice job\". Used when "
+                     "leaving a room or after event end\n"
+                     "• **Park:** Achieving a set number of event points and stopping there (for example 6,666,666 or "
+                     "20,000,000)\n"
+                     "• **PLocker:** Perfect Locker card. \"BAD or better taps change to PERFECT taps for 5.5s and "
+                     "Score +x% for 5s.\"\n"
+                     "• **Podium:** Top 3 players of any event\n"
+                     "• **Pscorer:** Perfect Scorer card. \"Score +x% for PERFECT taps for 5s\"\n"
+                     "• **Pub:** Either opening the room to public or playing in co-op\n"
+                     "• **Scorer:** Regular scorer card. \"Score +x% for 5s.\"\n"
+                     "• **SF:** Short for Super Fever. Tap all the notes during Fever Chance to get extra rewards "
+                     "(but NOT extra event points!)\n"
+                     "• **SL:** Short for skill level\n"
+                     "• **Uscorer:** Unit Scorer card. \"Score +x% for 5s. Score +10% for every [Unit] Character, "
+                     "excluding self, plus an extra 10% (up to +y%) when all Characters are from [Unit].\"\n"))
+        # embed.set_image(url='https://files.s-neon.xyz/share/bandori-efficiency.png')
+        embed.set_footer(text=discord.Embed.Empty)
+        await dest_channel.send(embed=embed)
+        await ctx.interaction.followup.send(embed=gen_embed(
+            title='Tiering Terms',
+            content=f'Tiering terms guide posted in {dest_channel.mention}'),
+            ephemeral=True)
+
     @guides.command(name='efficiency',
                     description='Generates an efficiency guide for tiering')
     @default_permissions(manage_messages=True)
@@ -450,7 +520,7 @@ class Tiering(commands.Cog):
                     return
 
             await ctx.channel.edit(name=f'{nameprefix}{room_num}{namesuffix}')
-            await ctx.send(embed=gen_embed(title='room',
+            await ctx.send(embed=gen_embed(title='Just this once',
                                            thumb_url=f'{THUMB}',
                                            content=f'Changed room code to {room_num}'))
         else:
@@ -470,12 +540,12 @@ class Tiering(commands.Cog):
                                                             ' must be a value from 0-4.')))
                     return
                 await ctx.channel.edit(name=f'{nameprefix}{namesuffix}')
-                await ctx.send(embed=gen_embed(title='room',
+                await ctx.send(embed=gen_embed(title='Just this once',
                                                thumb_url=f'{THUMB}',
                                                content=f'Changed open spots to {open_spots}'))
             else:
                 await ctx.channel.edit(name=f'{nameprefix}xxxxx')
-                await ctx.send(embed=gen_embed(title='room',
+                await ctx.send(embed=gen_embed(title='Just this once',
                                                thumb_url=f'{THUMB}',
                                                content=f'Closed room'))
 
