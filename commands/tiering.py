@@ -270,11 +270,11 @@ class Tiering(commands.Cog):
             name=f"{ctx.guild.name}",
             icon_url=ctx.guild.icon.url,
             title='Marathon Filling Info',
-            content=("Adapted from Azufire's \"FILLER 101\" guide on R8SS."))
+            content=("Adapted from Azufire's \"FILLER 101\" guide from R8SS."))
         embed.set_footer(text=discord.Embed.Empty)
         await dest_channel.send(embed=embed)
         embed = gen_embed(
-            title="HOW TO MAKE TEAM / SKILLS 101",
+            title="HOW TO MAKE A TEAM / SKILLS 101",
             content=("__ONLY 2 THINGS MATTER__: Hit 150k talent and max skill bonus (biggest score% boost)\n\n"
                      "__BEST SKILLS (IN ORDER)__ *(example values are skill lvl 1, 4\* cards)*:\n"
                      "1. **Unit Scorer [UScorer]** NEEDS ALL CARDS FROM SAME UNIT (yes, VS works)\n"
@@ -294,11 +294,11 @@ class Tiering(commands.Cog):
                      "```\"70% score boost for 5 seconds (120% until GREAT or lower)\"```\n"
                      "Tierers have skill issue and can*t all perfect combo all the time\n\n"
                      "Use only if your tierers are built different/say it*s OK"))
-        embed.set_image(url='https://files.s-neon.xyz/share/marina_box.png')
+        embed.set_image(url='https://svenxiety.xyz/junk/fill_best.png')
         embed.set_footer(text=discord.Embed.Empty)
         await dest_channel.send(embed=embed)
         embed = gen_embed(
-            title="WHAT*S AN ISV/ HOW DO I CALCULATE?",
+            title="WHAT'S AN ISV / HOW DO I CALCULATE?",
             content=("**ISV:** Internal Skill Value - used to measure team strength / order rooms\n\n"
                      "First value = leader skill value (number in front of %)\n\n"
                      "Second value = sum of ALL skill values in team\n\n"
@@ -322,6 +322,136 @@ class Tiering(commands.Cog):
         await ctx.interaction.followup.send(embed=gen_embed(
             title='Marathon Filling Info',
             content=f'Marathon Filling guide posted in {dest_channel.mention}'),
+            ephemeral=True)
+
+    @guides.command(name='cheerful-carnival',
+                    description='Generates a guide for Cheerful Carnival events')
+    @default_permissions(manage_messages=True)
+    async def marathonguide(self,
+                          ctx: discord.ApplicationContext,
+                          channel: Option(discord.SlashCommandOptionType.channel,
+                                          ('Channel to post guide in. If not specified, '
+                                           'will post in current channel'),
+                                          required=False)):
+        await ctx.interaction.response.defer()
+        if channel:
+            dest_channel = channel
+        else:
+            dest_channel = ctx.interaction.channel
+        embed = gen_embed(
+            name=f"{ctx.guild.name}",
+            icon_url=ctx.guild.icon.url,
+            title='Cheerful Carnival Filling Info',
+            content=("Adapted from Azufire's \"FILLER 101 [Cheerful Carnival]\" guide from R8SS."))
+        embed.set_footer(text=discord.Embed.Empty)
+        await dest_channel.send(embed=embed)
+        embed = gen_embed(
+            title="HOW TO MAKE A TEAM / SKILLS 101",
+            content=("__ONLY 2 THINGS MATTER__: Max skill bonus (biggest score% boost) and TALENT\n\n"
+                     "__BEST SKILLS (IN ORDER)__ *(example values are skill lvl 1, 4\* cards)*:\n"
+                     "1. **Unit Scorer [UScorer]** NEEDS ALL CARDS FROM SAME UNIT (yes, VS works)\n"
+                     "```\"Score boost 80% for 5 seconds; For every member of [UNIT] in your team, there will be an extra score boost of 10%, with a maximum boost of 130%\"```\n"
+                     "2. **Life Scorer [LScorer]**\n"
+                     "```\"Score boost 70% if life is under 800 (100% if life is over 800) for 5 seconds. For every 10 life, score is increased by +1% (up to 120%)\"```\n"
+                     "3. **Perfect Scorer [PScorer]**\n"
+                     "```\"110% score boost for 5 seconds for PERFECTs only.\"```\n"
+                     "4. **Scorer**\n"
+                     "```\"100% score boost for 5 seconds.\"```\n"
+                     "5. **Healer (OK ONLY IN CC)**\n"
+                     "```\"Recover 350 life; 80% score boost for 5 seconds.\"```\n"
+                     "**NOTES**\n"
+                     "• Leader trigger is the most powerful (furthest card on left) - put your strongest skill card here\n\n"
+                     "• Other cards still trigger their skills in song - use your best skill cards in every team slot\n\n"
+                     "• DON'T USE Accuracy Scorer / Combo Scorer [AScorer/GScorer] 9/10 TIMES\n"
+                     "```\"70% score boost for 5 seconds (120% until GREAT or lower)\"```\n"
+                     "Tierers have skill issue and can*t all perfect combo all the time\n\n"
+                     "Use only if your tierers are built different/say it*s OK"))
+        embed.set_image(url='https://svenxiety.xyz/junk/fill_best.png')
+        embed.set_footer(text=discord.Embed.Empty)
+        await dest_channel.send(embed=embed)
+        embed = gen_embed(
+            title="HEALERS? IN MY TIERING ROOM?",
+            content=("In CC, you get more points if you are at or above max HP at the end of a song. Most rooms will want 1 player with a HEALER lead, or BIRTHDAY card if tierers have skill issue/are dying (birthday cards = stronger heal, weaker score boost)."))
+        embed.set_footer(text=discord.Embed.Empty)
+        await dest_channel.send(embed=embed)
+        embed = gen_embed(
+            title="TALENT LEVEL? SANDBAGGING?",
+            content=("CC means you need to match with an enemy team of a similar talent level. If your lobby is too strong, matchmaking will take longer and matches are harder to win because you will be fighting other high talent teams.\n\n"
+                     "Some fillers will bring the lowest level cards they can (\"sandbag\") to either barely hit 150k talent for pro rooms, OR as low as possible talent (while still having good skills) for gen rooms."))
+        embed.set_footer(text=discord.Embed.Empty)
+        await dest_channel.send(embed=embed)
+        embed = gen_embed(
+            title="WHAT'S AN ISV / HOW DO I CALCULATE?",
+            content=("**ISV:** Internal Skill Value - used to measure team strength / order rooms\n\n"
+                     "First value = leader skill value (number in front of %)\n\n"
+                     "Second value = sum of ALL skill values in team\n\n"
+                     "Ex: if you have a team of all 4* PScorers with base skill 110 → ISV = 110 / 550"))
+        embed.set_footer(text=discord.Embed.Empty)
+        await dest_channel.send(embed=embed)
+        embed = gen_embed(
+            title="WHAT'S ROOM ORDER?",
+            content=("Because player skills trigger in a specific order in multi lives based on player order in the room, some player skills will be more important than others.\n\n"
+                     "For high tier runs with room orders, managers will tell you what team to use and what room slot to go in (P1 - P5).\n\n"
+                     "Join when your number is called. Then when you load into the lobby, call the next number to join.\n\n"
+                     "However, for CC, since matchmaking is frequently unstable, prioritize getting matches over maintaining room order. In the case of a disconnect/disband, simply rejoin as fast as possible to return to matchmaking."))
+        embed.set_footer(text=discord.Embed.Empty)
+        await dest_channel.send(embed=embed)
+        await ctx.interaction.followup.send(embed=gen_embed(
+            title='Cheerful Carnival Filling Info',
+            content=f'Cheerful Carnival guide posted in {dest_channel.mention}'),
+            ephemeral=True)
+
+    @guides.command(name='fill-teams',
+                    description='Generates a guide for creating fill teams')
+    @default_permissions(manage_messages=True)
+    async def marathonguide(self,
+                          ctx: discord.ApplicationContext,
+                          channel: Option(discord.SlashCommandOptionType.channel,
+                                          ('Channel to post guide in. If not specified, '
+                                           'will post in current channel'),
+                                          required=False)):
+        await ctx.interaction.response.defer()
+        if channel:
+            dest_channel = channel
+        else:
+            dest_channel = ctx.interaction.channel
+        embed = gen_embed(
+            name=f"{ctx.guild.name}",
+            icon_url=ctx.guild.icon.url,
+            title='Fill Teams Guide',
+            content=("Adapted from Alpha Gathering's fill teams guide."))
+        embed.set_footer(text=discord.Embed.Empty)
+        await dest_channel.send(embed=embed)
+        embed = gen_embed(
+            title="Best Fill Team",
+            content=("Your regular Marathon fill team. Focus on maximizing your ISV here."))
+        embed.set_image(url='https://svenxiety.xyz/junk/fill_best.png')
+        embed.set_footer(text=discord.Embed.Empty)
+        await dest_channel.send(embed=embed)
+        embed = gen_embed(
+            title="Fill Team <180k Talent (Pro Room Sandbag)",
+            content=("Your best possible fill team while staying under 180k talent. This is used for sandbagging in Pro rooms during CC events.\n\n"
+                     "Unleveled 4\* cards are useful here, but 3\*, 2\* and 1\* cards can be swapped in as well. Prioritize scorer abilities."))
+        embed.set_image(url='https://svenxiety.xyz/junk/fill_sb1.png')
+        embed.set_footer(text=discord.Embed.Empty)
+        await dest_channel.send(embed=embed)
+        embed = gen_embed(
+            title="Fill Team <120k Talent (Gen Room Sandbag)",
+            content=("Your best possible fill team while staying under 120k talent. This is used for sandbagging in Gen rooms during CC events.\n\n"
+                     "Unleveled 4\* cards are useful here, but 3\*, 2\* and 1\* cards can be swapped in as well. Prioritize scorer abilities and try to get talent as low as possible."))
+        embed.set_image(url='https://svenxiety.xyz/junk/fill_sb2.png')
+        embed.set_footer(text=discord.Embed.Empty)
+        await dest_channel.send(embed=embed)
+        embed = gen_embed(
+            title="Sandbag Heal Team",
+            content=("This team should be similar to the previous sandbag team, but with a Healer lead. Aim for less than 120k talent. Only your leader needs to be a Healer.\n\n"
+                     "Use a regular Healer rather than a Birthday Healer, as regular Healers provide higher score boost."))
+        embed.set_image(url='https://svenxiety.xyz/junk/fill_hsb.png')
+        embed.set_footer(text=discord.Embed.Empty)
+        await dest_channel.send(embed=embed)
+        await ctx.interaction.followup.send(embed=gen_embed(
+            title='Fill Teams Guide',
+            content=f'Fill teams guide posted in {dest_channel.mention}'),
             ephemeral=True)
 
     @guides.command(name='carpal-avoidance',
