@@ -234,7 +234,7 @@ class Tiering(commands.Cog):
         embed = gen_embed(
             title='Rank Checking',
             content=("Do not leave the room to check your rank. Use Nenerobo to check your rank, leaderboard, cutoffs, etc.\n\n"
-                     "Link your Discord account with Nenerobo prior to entering the room. Type ```/rank``` to begin the linking process.\n\n"))
+                     "Link your Discord account with Nenerobo prior to entering the room. Type /rank to begin the linking process.\n\n"))
         embed.set_footer(text=discord.Embed.Empty)
         await dest_channel.send(embed=embed)
         embed = gen_embed(
@@ -276,7 +276,7 @@ class Tiering(commands.Cog):
         embed = gen_embed(
             title="HOW TO MAKE TEAM / SKILLS 101",
             content=("__ONLY 2 THINGS MATTER__: Hit 150k talent and max skill bonus (biggest score% boost)\n\n"
-                     "__BEST SKILLS (IN ORDER)__ *(example values are skill lvl 1, 4* cards)*:\n"
+                     "__BEST SKILLS (IN ORDER)__ *(example values are skill lvl 1, 4\* cards)*:\n"
                      "1. **Unit Scorer [UScorer]** NEEDS ALL CARDS FROM SAME UNIT (yes, VS works)\n"
                      "```\"Score boost 80% for 5 seconds; For every member of [UNIT] in your team, there will be an extra score boost of 10%, with a maximum boost of 130%\"```\n"
                      "2. **Life Scorer [LScorer]**\n"
