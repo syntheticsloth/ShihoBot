@@ -8,7 +8,7 @@ def gen_embed(name=None, icon_url=None, title=None, content=None, colour=None, t
     if colour:
         e = discord.Embed(colour=colour)
     else:
-        e = discord.Embed(colour=0x1abc9c)
+        e = discord.Embed(colour=0xBBDE22)
     if name and icon_url:
         e.set_author(name=name, icon_url=icon_url)
     e.set_footer(text="Don't say I didn't warn you")

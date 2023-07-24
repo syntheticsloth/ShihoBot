@@ -195,9 +195,9 @@ class Tiering(commands.Cog):
                      "5. **Healer (OK ONLY IN CC)**\n"
                      "```\"Recover 350 life; 80% score boost for 5 seconds.\"```\n"
                      "**NOTES**\n"
-                     "• Leader trigger is the most powerful (furthest card on left) - put your strongest skill card here\n\n"
-                     "• Other cards still trigger their skills in song - use your best skill cards in every team slot\n\n"
-                     "• DON'T USE Accuracy Scorer / Combo Scorer [AScorer/GScorer] 9/10 TIMES\n"
+                     "Leader trigger is the most powerful (furthest card on left) - put your strongest skill card here\n\n"
+                     "Other cards still trigger their skills in song - use your best skill cards in every team slot\n\n"
+                     "DON'T USE Accuracy Scorer / Combo Scorer [AScorer/GScorer] 9/10 TIMES\n"
                      "```\"70% score boost for 5 seconds (120% until GREAT or lower)\"```\n"
                      "Tierers have skill issue and can't all perfect combo all the time\n\n"
                      "Use only if your tierers are built different/say it*s OK"))
@@ -358,7 +358,30 @@ class Tiering(commands.Cog):
             name=f"{ctx.guild.name}",
             icon_url=ctx.guild.icon.url,
             title='Fill Teams Guide',
-            content=("Adapted from Alpha Gathering's fill teams guide."))
+            content=("Adapted from Alpha Gathering's fill teams guide and Azufire's \"FILLER 101\" guides from R8SS."))
+        embed.set_footer(text=discord.Embed.Empty)
+        await dest_channel.send(embed=embed)
+        embed = gen_embed(
+            title="HOW TO MAKE A TEAM / SKILLS 101",
+            content=("__ONLY 2 THINGS MATTER__: Max skill bonus (biggest score% boost) and TALENT\n\n"
+                     "__BEST SKILLS (IN ORDER)__ *(example values are skill lvl 1, 4\* cards)*:\n"
+                     "1. **Unit Scorer [UScorer]** NEEDS ALL CARDS FROM SAME UNIT (yes, VS works)\n"
+                     "```\"Score boost 80% for 5 seconds; For every member of [UNIT] in your team, there will be an extra score boost of 10%, with a maximum boost of 130%\"```\n"
+                     "2. **Life Scorer [LScorer]**\n"
+                     "```\"Score boost 70% if life is under 800 (100% if life is over 800) for 5 seconds. For every 10 life, score is increased by +1% (up to 120%)\"```\n"
+                     "3. **Perfect Scorer [PScorer]**\n"
+                     "```\"110% score boost for 5 seconds for PERFECTs only.\"```\n"
+                     "4. **Scorer**\n"
+                     "```\"100% score boost for 5 seconds.\"```\n"
+                     "5. **Healer (OK ONLY IN CC)**\n"
+                     "```\"Recover 350 life; 80% score boost for 5 seconds.\"```\n"
+                     "**NOTES**\n"
+                     "Leader trigger is the most powerful (furthest card on left) - put your strongest skill card here\n\n"
+                     "Other cards still trigger their skills in song - use your best skill cards in every team slot\n\n"
+                     "DON'T USE Accuracy Scorer / Combo Scorer [AScorer/GScorer] 9/10 TIMES\n"
+                     "```\"70% score boost for 5 seconds (120% until GREAT or lower)\"```\n"
+                     "Tierers have skill issue and can't all perfect combo all the time\n\n"
+                     "Use only if your tierers are built different/say it*s OK"))
         embed.set_footer(text=discord.Embed.Empty)
         await dest_channel.send(embed=embed)
         embed = gen_embed(
