@@ -373,14 +373,14 @@ class Tiering(commands.Cog):
             content=('Below is a helpful guide for warming up. Other guides for Gamer Stretches™ probably exist on the'
                      ' internet. If you have one you like, keep following it.\n\nTake off any wristwatches before'
                      ' playing - wearing them worsens carpal tunnel.\n\nGrab a jug of water or other drinks to keep'
-                     ' hydration within arm's reach.'))
+                     ' hydration within arm\'s reach.'))
         embed.set_footer(text=discord.Embed.Empty)
         await dest_channel.send(embed=embed)
         await dest_channel.send(content='https://esportshealthcare.com/gamer-warm-up/')
         embed = gen_embed(
             title="While Playing",
             content=('**Try to keep good posture.**\nTyping ergonomics logic likely applies here.\n'
-                     '🔹 Consider playing on index fingers; it's easier on your wrists. Put your phone or tablet flat'
+                     '🔹 Consider playing on index fingers; it\'s easier on your wrists. Put your phone or tablet flat'
                      ' on the table, and tap on it as if it was a keyboard.\n'
                      '🔹 Position your wrist straight/aligned and neutral, as if you were playing piano.\n'
                      '🔹 Try to look down at your screen with your eyes instead of moving your head.'
