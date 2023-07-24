@@ -124,7 +124,7 @@ class Tiering(commands.Cog):
             content=("**Boat:** To push someone out of their rank\n\n"
                      "**Conduct Warning:** A warning from the game after repeated disconnects. This warning will "
                      "prevent you from joining shows for a certain amount of time. The length of time increases "
-                     "with each disconnect."
+                     "with each disconnect.\n\n"
                      "**DC:** Disconnect\n\n"
                      "**Doormat:** During Marathon filling, playing on Easy and hitting every note until the end of "
                      "Fever, and then stopping playing. Allows the filler to do more things during filling\n\n"
@@ -138,7 +138,7 @@ class Tiering(commands.Cog):
                      "**Park:** Achieving a set number of event points and stopping there (for example 6,666,666 or "
                      "20,000,000)\n\n"
                      "**Pub:** Either opening the room to public or playing in co-op\n\n"
-                     "**Runner:** A tierer, typically one going for a high tier and being hosted by a server"
+                     "**Runner:** A tierer, typically one going for a high tier and being hosted by a server\n\n"
                      "**sc:** \"Scores\", \"spam code\", \"show clear\", etc. During room swaps, indicates you can start "
                      "spamming the \"Join\" button"))
         embed.set_footer(text=discord.Embed.Empty)
@@ -187,7 +187,7 @@ class Tiering(commands.Cog):
         await dest_channel.send(embed=embed)
         embed = gen_embed(
             title='Doormatting',
-            content=("Doormatting is when you play on Easy, hit enough notes in a song, and then stop playing. This is for **fillers"
+            content=("Doormatting is when you play on Easy, hit enough notes in a song, and then stop playing. This is for **fillers "
                      "only**.\n\n"
                      "You must hit **at least 50% of the notes** in a song, otherwise you will get a conduct warning.\n\n"
                      "For Hitorinbo Envy during Marathon events, it's suggested to hit all of the notes up until the end of "
@@ -234,7 +234,7 @@ class Tiering(commands.Cog):
         embed = gen_embed(
             title='Rank Checking',
             content=("Do not leave the room to check your rank. Use Nenerobo to check your rank, leaderboard, cutoffs, etc.\n\n"
-                     "Link your Discord account with Nenerobo prior to entering the room. Type /rank to begin the linking process.\n\n"))
+                     "Link your Discord account with Nenerobo prior to entering the room. Type ```/rank``` to begin the linking process.\n\n"))
         embed.set_footer(text=discord.Embed.Empty)
         await dest_channel.send(embed=embed)
         embed = gen_embed(
@@ -277,21 +277,21 @@ class Tiering(commands.Cog):
             title="HOW TO MAKE TEAM / SKILLS 101",
             content=("__ONLY 2 THINGS MATTER__: Hit 150k talent and max skill bonus (biggest score% boost)\n\n"
                      "__BEST SKILLS (IN ORDER)__ *(example values are skill lvl 1, 4* cards)*:\n"
-                     "1. **Unit Scorer [UScorer]** *NEEDS ALL CARDS FROM SAME UNIT (yes, VS works)*\n"
-                     "```\"Score boost 80% for 5 seconds; For every member of [UNIT] in your team, there will be an extra score boost of 10%, with a maximum boost of 130%\"```\n\n"
+                     "1. **Unit Scorer [UScorer]** NEEDS ALL CARDS FROM SAME UNIT (yes, VS works)\n"
+                     "```\"Score boost 80% for 5 seconds; For every member of [UNIT] in your team, there will be an extra score boost of 10%, with a maximum boost of 130%\"```\n"
                      "2. **Life Scorer [LScorer]**\n"
-                     "```\"Score boost 70% if life is under 800 (100% if life is over 800) for 5 seconds. For every 10 life, score is increased by +1% (up to 120%)\"```\n\n"
+                     "```\"Score boost 70% if life is under 800 (100% if life is over 800) for 5 seconds. For every 10 life, score is increased by +1% (up to 120%)\"```\n"
                      "3. **Perfect Scorer [PScorer]**\n"
-                     "```\"110% score boost for 5 seconds for PERFECTs only.\"```\n\n"
+                     "```\"110% score boost for 5 seconds for PERFECTs only.\"```\n"
                      "4. **Scorer**\n"
-                     "```\"100% score boost for 5 seconds.\"```\n\n"
+                     "```\"100% score boost for 5 seconds.\"```\n"
                      "5. **Healer (BOOOOO)**\n"
-                     "```\"Recover 350 life; 80% score boost for 5 seconds.\"```\n\n"
+                     "```\"Recover 350 life; 80% score boost for 5 seconds.\"```\n"
                      "**NOTES**\n"
                      "• Leader trigger is the most powerful (furthest card on left) - put your strongest skill card here\n\n"
                      "• Other cards still trigger their skills in song - use your best skill cards in every team slot\n\n"
-                     "• DON*T USE Accuracy Scorer / Combo Scorer [AScorer/GScorer] 9/10 TIMES\n"
-                     "```\"70% score boost for 5 seconds (120% until GREAT or lower)\"```\n\n"
+                     "• DON'T USE Accuracy Scorer / Combo Scorer [AScorer/GScorer] 9/10 TIMES\n"
+                     "```\"70% score boost for 5 seconds (120% until GREAT or lower)\"```\n"
                      "Tierers have skill issue and can*t all perfect combo all the time\n\n"
                      "Use only if your tierers are built different/say it*s OK"))
         embed.set_image(url='https://files.s-neon.xyz/share/marina_box.png')
