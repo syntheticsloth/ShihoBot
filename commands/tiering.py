@@ -77,51 +77,70 @@ class Tiering(commands.Cog):
             name=f"{ctx.guild.name}",
             icon_url=ctx.guild.icon.url,
             title='Tiering Terms',
-            content=("Tiering terms from R8SS, with additions and cleanup by synthsloth\n\n"
-                     "• **AP:** All Perfect\n"
-                     "• **Ascorer:** Accuracy Scorer card. \"Score +xx% for 5s and Score +xxx% until a GREAT or worse "
-                     "tap is recorded.\"\n"
-                     "• **BP:** Another name for Talent\n"
-                     "• **Boat:* To push someone out of their rank\n"
-                     "• **Cans/Boosts/Energy/Drinks:** The amount of energy you use per game. The higher its amount, "
-                     "the higher the rewards\n"
-                     "• **CC:** Cheerful Carnival\n"
-                     "• **DC:** Disconnect\n"
-                     "• **Doormat:** hitting AT LEAST 50% of the notes in a song, tapping every note during Fever "
-                     "Chance and dying after doing so. Allows the filler to do more things during filling\n"
-                     "• **Encore:** 6th skill activation. It's triggered by the player with the highest score (co-op) "
-                     "or your leader card (solo show)\n"
-                     "• **EP:** Event Points\n"
-                     "• **FC:** Full Combo\n"
-                     "• **Fes:** Colorful Festival, AKA Colofes or Colorfes\n"
-                     "• **Fillers:** People who help the tierer achieve their goal\n"
-                     "• **Grief:** Ruining something. Whether that's super fever, menuing or anything else\n"
-                     "• **Gscorer:** Another name for Ascorer (Accuracy Scorer)\n"
-                     "• **Healer:** Healer card. \"Life Recovery +350 and Score +x% for 5s.\"\n"
-                     "• **ISV:** Internal Skill Value\n"
-                     "• **Lscorer:** Life Scorer card. \"Score +x% for 5s if your Life is below 800 upon activating "
-                     "or Score +y% if above 800, and +1% every time your Life increases by 10 (max z%).\"\n"
-                     "• **MM:** Short for matchmaking\n"
-                     "• **MR:** Mastery Rank\n"
-                     "• **Menuing:** Tapping the screen after the song ends to play the next one as fast as possible\n"
-                     "• **Nats:** Energy that regenerates over time (1 energy per 30 mins)\n"
-                     "• **op:** Open, means the room is open and you can join\n"
-                     "• **Otsu:** Abbreviation of \"otsukaresama\", meaning \"good work\" or \"nice job\". Used when "
-                     "leaving a room or after event end\n"
-                     "• **Park:** Achieving a set number of event points and stopping there (for example 6,666,666 or "
-                     "20,000,000)\n"
-                     "• **PLocker:** Perfect Locker card. \"BAD or better taps change to PERFECT taps for 5.5s and "
-                     "Score +x% for 5s.\"\n"
-                     "• **Podium:** Top 3 players of any event\n"
-                     "• **Pscorer:** Perfect Scorer card. \"Score +x% for PERFECT taps for 5s\"\n"
-                     "• **Pub:** Either opening the room to public or playing in co-op\n"
-                     "• **Scorer:** Regular scorer card. \"Score +x% for 5s.\"\n"
-                     "• **SF:** Short for Super Fever. Tap all the notes during Fever Chance to get extra rewards "
-                     "(but NOT extra event points!)\n"
-                     "• **SL:** Short for skill level\n"
-                     "• **Uscorer:** Unit Scorer card. \"Score +x% for 5s. Score +10% for every [Unit] Character, "
-                     "excluding self, plus an extra 10% (up to +y%) when all Characters are from [Unit].\"\n"))
+            content=("Tiering terms from R8SS, with additions by synthsloth"))
         # embed.set_image(url='https://files.s-neon.xyz/share/bandori-efficiency.png')
+        embed.set_footer(text=discord.Embed.Empty)
+        await dest_channel.send(embed=embed)
+        embed = gen_embed(
+            title='Cards',
+            content=("**Ascorer:** Accuracy Scorer card. \"*Score +xx% for 5s and Score +xxx% until a GREAT or worse "
+                     "tap is recorded.*\"\n\n"
+                     "**Fes:** Colorful Festival card, AKA Colofes or Colorfes\n\n"
+                     "**Gscorer:** Another name for Ascorer (Accuracy Scorer)\n\n"
+                     "**Healer:** Healer card. \"*Life Recovery +350 and Score +x% for 5s.*\"\n\n"
+                     "**Lscorer:** Life Scorer card. \"*Score +x% for 5s if your Life is below 800 upon activating "
+                     "or Score +y% if above 800, and +1% every time your Life increases by 10 (max z%).*\"\n\n"
+                     "**PLocker:** Perfect Locker card. \"*BAD or better taps change to PERFECT taps for 5.5s and "
+                     "Score +x% for 5s.*\"\n\n"
+                     "**Pscorer:** Perfect Scorer card. \"*Score +x% for PERFECT taps for 5s*\"\n\n"
+                     "**Scorer:** Regular scorer card. \"*Score +x% for 5s.*\"\n\n"
+                     "**Uscorer:** Unit Scorer card. \"*Score +x% for 5s. Score +10% for every [Unit] Character, "
+                     "excluding self, plus an extra 10% (up to +y%) when all Characters are from [Unit].*\""))
+        embed.set_footer(text=discord.Embed.Empty)
+        await dest_channel.send(embed=embed)
+        embed = gen_embed(
+            title='Mechanics',
+            content=("**AP:** All Perfect\n\n"
+                     "**BP:** \"Battle Power\". Another name for Talent\n\n"
+                     "**Cans/Boosts/Energy/Drinks:** The amount of energy you use per game. The higher its amount, "
+                     "the higher the rewards\n\n"
+                     "**CC:** Cheerful Carnival\n\n"
+                     "**EB:** Event Bonus\n\n"
+                     "**Encore:** 6th skill activation. It's triggered by the player with the highest score (co-op) "
+                     "or your leader card (solo show)\n\n"
+                     "**EP:** Event Points\n\n"
+                     "**FC:** Full Combo\n\n"
+                     "**ISV:** Internal Skill Value\n\n"
+                     "**MR:** Mastery Rank\n\n"
+                     "**Nats:** Energy that regenerates over time (1 energy per 30 mins)\n\n"
+                     "**Podium:** Top 3 players of any event\n\n"
+                     "**SF:** Short for Super Fever. Tap all the notes during Fever Chance to get extra rewards "
+                     "(but NOT extra event points!)\n\n"
+                     "**SL:** Short for skill level"))
+        embed.set_footer(text=discord.Embed.Empty)
+        await dest_channel.send(embed=embed)
+        embed = gen_embed(
+            title='Tiering',
+            content=("**Boat:** To push someone out of their rank\n\n"
+                     "**Conduct Warning:** A warning from the game after repeated disconnects. This warning will "
+                     "prevent you from joining shows for a certain amount of time. The length of time increases "
+                     "with each disconnect."
+                     "**DC:** Disconnect\n\n"
+                     "**Doormat:** During Marathon filling, playing on Easy and hitting every note until the end of "
+                     "Fever, and then stopping playing. Allows the filler to do more things during filling\n\n"
+                     "**Fillers:** People who help the tierer achieve their goal\n\n"
+                     "**Grief:** Ruining something. Whether that's super fever, menuing or anything else\n\n"
+                     "**MM:** Short for matchmaking\n\n"
+                     "**Menuing:** Tapping the screen after the song ends to play the next one as fast as possible\n\n"
+                     "**op:** Open, means the room is open and you can join\n\n"
+                     "**Otsu:** Abbreviation of \"otsukaresama\", meaning \"good work\" or \"nice job\". Used when "
+                     "leaving a room or after event end\n\n"
+                     "**Park:** Achieving a set number of event points and stopping there (for example 6,666,666 or "
+                     "20,000,000)\n\n"
+                     "**Pub:** Either opening the room to public or playing in co-op\n\n"
+                     "**Runner:** A tierer, typically one going for a high tier and being hosted by a server"
+                     "**sc:** \"Scores\", \"spam code\", \"show clear\", etc. During room swaps, indicates you can start "
+                     "spamming the \"Join\" button"))
         embed.set_footer(text=discord.Embed.Empty)
         await dest_channel.send(embed=embed)
         await ctx.interaction.followup.send(embed=gen_embed(
@@ -146,49 +165,86 @@ class Tiering(commands.Cog):
         embed = gen_embed(
             name=f"{ctx.guild.name}",
             icon_url=ctx.guild.icon.url,
-            title='Tiering Etiqeutte and Efficiency',
-            content='Efficiency guidelines taken from LH 2.0, originally made by Binh and edited by doom_chicken.')
-        embed.set_image(url='https://files.s-neon.xyz/share/bandori-efficiency.png')
+            title='Tiering Etiquette and Efficiency',
+            content='Efficiency guidelines adapted from Alpha Gathering, with additions by synthsloth.')
+        # embed.set_image(url='https://files.s-neon.xyz/share/bandori-efficiency.png')
         await dest_channel.send(embed=embed)
         embed = gen_embed(
-            title='Menuing',
-            content='Spam the bottom right of your screen in between songs. See video for an example:')
+            title='Fast Menuing',
+            content=("After completing a song, tap through the buttons on the bottom right to skip through the "
+                     "screens as fast as you can.\n\n"
+                     "The same applies for the song selection screen in Marathons and the ready up screen in Cheerful "
+                     "Carnivals.\n\n"
+                     "If you need to type something in chat, try to menu first to keep things going smoothly."))
         embed.set_footer(text=discord.Embed.Empty)
         await dest_channel.send(embed=embed)
-        await dest_channel.send(content='https://twitter.com/Binh_gbp/status/1106789316607410176')
+        # await dest_channel.send(content='https://twitter.com/Binh_gbp/status/1106789316607410176')
         embed = gen_embed(
-            title='Swaps',
-            content=("Try to have someone ready to swap with you by the time you're done. Ping the appropriate roles"
-                     " (usually standby, or t100 or even t1000) and when you're planning to stop.  Say \"scores\" in"
-                     " your room's chat dest_channel when you finish the song and \"open\" when you're out of the room."
-                     " Ideally whoever is swapping in should be spamming the room code to join as soon as they see"
-                     " \"scores.\" If possible, being in VC with the tierers can greatly smooth out this process."))
-        embed.set_footer(text=discord.Embed.Empty)
-        await dest_channel.send(embed=embed)
-        embed = gen_embed(
-            title='Pins/Frames/Titles',
-            content=('Pins/Frames/Titles - Please remove any and all existing pins as well as setting the default'
-                     ' frame; these will slow down the room greatly with additional loading times. We would also prefer'
-                     ' if you went down to one title before you join any rooms, but no need to leave if forgotten.'))
+            title='Energy Refilling',
+            content=("For **Marathon** events, refill during the song selection screen.\n\n"
+                     "For **Cheerful Carnival** events, refill during matchmaking."))
         embed.set_footer(text=discord.Embed.Empty)
         await dest_channel.send(embed=embed)
         embed = gen_embed(
-            title='Flame Sync',
-            content=('Flame syncing will operate with the remake of the room every set of 90 🔥. If multiple sets'
-                     ' are being done, a room maker should be designated. The flame check setting should now be turned'
-                     ' OFF from now on.'))
+            title='Doormatting',
+            content=("Doormatting is when you play on Easy, hit enough notes in a song, and then stop playing. This is for **fillers"
+                     "only**.\n\n"
+                     "You must hit **at least 50% of the notes** in a song, otherwise you will get a conduct warning.\n\n"
+                     "For Hitorinbo Envy during Marathon events, it's suggested to hit all of the notes up until the end of "
+                     "fever chance (43 notes) before going afk.\n\n"
+                     "For Cheerful Carnival events, since song selection is random, ensure you hit at least half of the notes "
+                     "in the selected song before you stop playing."))
         embed.set_footer(text=discord.Embed.Empty)
         await dest_channel.send(embed=embed)
         embed = gen_embed(
-            title='Skip Full Combo',
-            content="Break combo somewhere in the song, it'll skip the FC animation and save a few seconds.")
+            title='Room Swaps',
+            content=("Have the room code typed in beforehand.\n\n"
+                     "Join as soon as someone says the room is open (\"op\"). You can also spam the join button "
+                     "when they say \"sc\".\n\n"
+                     "If there is room order, pay attention to the spot you've been assigned and be ready to join as soon as "
+                     "someone types it in chat (P2, P3, P4, P5 or 2, 3, 4, 5).\n\n"
+                     "If you are P1, create the room beforehand. Try rolling codes until you get one that is easy to type.\n\n"
+                     "For Marathon events, have the song Hitorinbo Envy selected from a Solo Show before you join to prevent "
+                     "accidentally selecting the wrong song. Do not rely on selecting \"Recommended\" each round.\n\n"
+                     "Make sure you're using the correct team."))
         embed.set_footer(text=discord.Embed.Empty)
         await dest_channel.send(embed=embed)
         embed = gen_embed(
-            title='Rooming Guidelines',
-            content=("**Starting with 3-4 people** can potentially be better than dealing with the chance of bad pubs"
-                     " depending on the event.\n\nFor extremely competitive events, iOS and high end Android devices"
-                     " are given priority."))
+            title='Don\'t All Perfect',
+            content=("Try not to All Perfect (AP). The messages \"Full Combo\" And \"Show Cleared\" have the same animation "
+                     "length at the end of a song. However, \"ALL PERFECT\" has a longer animation. Every second counts!"))
+        embed.set_footer(text=discord.Embed.Empty)
+        await dest_channel.send(embed=embed)
+        embed = gen_embed(
+            title='Communication',
+            content=("Try to have another device to communicate with others, otherwise use in-game stamps if you can't.\n\n"
+                     "If the runner or a manager is in voice chat (VC), you can also join that.\n\n"
+                     "Let the other people know if you need to leave a couple of rounds prior to doing so."))
+        embed.set_footer(text=discord.Embed.Empty)
+        await dest_channel.send(embed=embed)
+        embed = gen_embed(
+            title='Fill Scheduling',
+            content=("Please only sign up for hours you are able to do. Don't sign up for super long shifts if you cannot "
+                     "make it through.\n\n"
+                     "Expect to have to stay for the **entirety** of your shift.\n\n"
+                     "In case you're unable to make it to your shift or need to end your shift early, let the managers and runners "
+                     "know as soon as possible so a replacement can be found."))
+        embed.set_footer(text=discord.Embed.Empty)
+        await dest_channel.send(embed=embed)
+        embed = gen_embed(
+            title='Rank Checking',
+            content=("Do not leave the room to check your rank. Use Nenerobo to check your rank, leaderboard, cutoffs, etc.\n\n"
+                     "Link your Discord account with Nenerobo prior to entering the room. Type /rank to begin the linking process.\n\n"))
+        embed.set_footer(text=discord.Embed.Empty)
+        await dest_channel.send(embed=embed)
+        embed = gen_embed(
+            title='Other Considerations',
+            content=("Make sure you have a stable internet connection before entering a room. Disconnects will disrupt room order"
+                     "and may lead to a conduct warning.\n\n"
+                     "Make sure your device is fully charged and/or plugged in to avoid disruptions due to low battery "
+                     "notifications.\n\n"
+                     "Enable \"Do Not Disturb\" to avoid distractions.\n\n"
+                     "For iOS users, utilize \"Guided Access\" to avoid accidentally exiting the app while playing."))
         embed.set_footer(text=discord.Embed.Empty)
         await dest_channel.send(embed=embed)
         await ctx.interaction.followup.send(embed=gen_embed(
@@ -196,10 +252,10 @@ class Tiering(commands.Cog):
             content=f'Tiering etiquette and efficiency guide posted in {dest_channel.mention}'),
             ephemeral=True)
 
-    @guides.command(name='vslive',
-                    description='Generates a guide for VS Live events')
+    @guides.command(name='marathon',
+                    description='Generates a guide for Marathon events')
     @default_permissions(manage_messages=True)
-    async def vsliveguide(self,
+    async def marathonguide(self,
                           ctx: discord.ApplicationContext,
                           channel: Option(discord.SlashCommandOptionType.channel,
                                           ('Channel to post guide in. If not specified, '
@@ -213,55 +269,59 @@ class Tiering(commands.Cog):
         embed = gen_embed(
             name=f"{ctx.guild.name}",
             icon_url=ctx.guild.icon.url,
-            title='Versus Live Tiering Info',
-            content=('Graciously stolen from **Zia** & **Blur** and the **Play Act! Challenge*Audition** server,'
-                     ' edited by **Neon**'))
+            title='Marathon Filling Info',
+            content=("Adapted from Azufire's \"FILLER 101\" guide on R8SS."))
         embed.set_footer(text=discord.Embed.Empty)
         await dest_channel.send(embed=embed)
         embed = gen_embed(
-            title="Marina's Gift Box Can Efficiency",
-            content=("**NEW**: You can now use the /giftbox command to have Kanon tell you when to move boxes!"
-                     "This chart helps you get the most boost cans as efficiently as possible."
-                     "It lets you know whether you should keep opening gifts from a box or move on to the next box"
-                     " (if possible) based on the probability of pulling a boost can."
-                     "\nTo use this chart, make sure turn on the settings called "
-                     '\n"Exchange All" & "Stop on Special Prize".'
-                     "\nOnce you have collected the special prize, you can look at this chart to determine if you"
-                     " should keep pulling or move to the next box."))
+            title="HOW TO MAKE TEAM / SKILLS 101",
+            content=("__ONLY 2 THINGS MATTER__: Hit 150k talent and max skill bonus (biggest score% boost)\n\n"
+                     "__BEST SKILLS (IN ORDER)__ *(example values are skill lvl 1, 4* cards)*:\n"
+                     "1. **Unit Scorer [UScorer]** *NEEDS ALL CARDS FROM SAME UNIT (yes, VS works)*\n"
+                     "```\"Score boost 80% for 5 seconds; For every member of [UNIT] in your team, there will be an extra score boost of 10%, with a maximum boost of 130%\"```\n\n"
+                     "2. **Life Scorer [LScorer]**\n"
+                     "```\"Score boost 70% if life is under 800 (100% if life is over 800) for 5 seconds. For every 10 life, score is increased by +1% (up to 120%)\"```\n\n"
+                     "3. **Perfect Scorer [PScorer]**\n"
+                     "```\"110% score boost for 5 seconds for PERFECTs only.\"```\n\n"
+                     "4. **Scorer**\n"
+                     "```\"100% score boost for 5 seconds.\"```\n\n"
+                     "5. **Healer (BOOOOO)**\n"
+                     "```\"Recover 350 life; 80% score boost for 5 seconds.\"```\n\n"
+                     "**NOTES**\n"
+                     "• Leader trigger is the most powerful (furthest card on left) - put your strongest skill card here\n\n"
+                     "• Other cards still trigger their skills in song - use your best skill cards in every team slot\n\n"
+                     "• DON*T USE Accuracy Scorer / Combo Scorer [AScorer/GScorer] 9/10 TIMES\n"
+                     "```\"70% score boost for 5 seconds (120% until GREAT or lower)\"```\n\n"
+                     "Tierers have skill issue and can*t all perfect combo all the time\n\n"
+                     "Use only if your tierers are built different/say it*s OK"))
         embed.set_image(url='https://files.s-neon.xyz/share/marina_box.png')
-        embed.add_field(
-            name='Green',
-            value='Favourable probability - **continue opening**')
-        embed.add_field(
-            name='Red',
-            value='Unfavourable probability - **skip to next box**')
-        embed.add_field(
-            name='White',
-            value='Neutral probability - **keep opening OR skip to next box**')
         embed.set_footer(text=discord.Embed.Empty)
         await dest_channel.send(embed=embed)
         embed = gen_embed(
-            title="Lazy Doormat Strategy",
-            content='Follow the chart below to obtain the best efficiency. Generally playing past fever is safe.')
-        embed.add_field(
-            name='Songs',
-            value=("```\nUnite! From A to Z: 87 / 124 / 252 / 357 / 311 (SP)"
-                   "\nSavior of Song: 67 / 123 / 201 / 386"
-                   "\nJumpin': 63 / 102 / 185 / 281"
-                   "\nKizuna Music: 78 / 127 / 207 / 265"
-                   "\nFuwa Fuwa Time: 52 / 98 / 192 / 272"
-                   "\nB.O.F - 54 / 88 / 207 / 306"
-                   "\nLegendary EN: 64 / 100 / 189 / 272"
-                   "\nHome Street: 65 / 111 / 193 / 269"
-                   "\nStraight Through Our Dreams!: 52 / 107 / 184 / 280"
-                   "\nInitial: 86 / 114 / 218 / 341"
-                   "\nKorekara: 59 / 104 / 170 / 296"
-                   "\nKyu~Mai * Flower: 73 / 108 / 226 / 351```"))
+            title="WHAT*S AN ISV/ HOW DO I CALCULATE?",
+            content=("**ISV:** Internal Skill Value - used to measure team strength / order rooms\n\n"
+                     "First value = leader skill value (number in front of %)\n\n"
+                     "Second value = sum of ALL skill values in team\n\n"
+                     "Ex: if you have a team of all 4* PScorers with base skill 110 → ISV = 110 / 550"))
+        embed.set_footer(text=discord.Embed.Empty)
+        await dest_channel.send(embed=embed)
+        embed = gen_embed(
+            title="WHAT'S ROOM ORDER?",
+            content=("Because player skills trigger in a specific order in multi lives based on player order in the room, some player skills will be more important than others.\n\n"
+                     "For high tier runs with room orders, managers will tell you what room slot to go in (P1 - P5).\n\n"
+                     "Join when your number is called. Then when you load into the lobby, call the next number to join.\n\n"
+                     "For lower tier runs, placing the strongest fillers as P4 and P5 is typically good enough."))
+        embed.set_footer(text=discord.Embed.Empty)
+        await dest_channel.send(embed=embed)
+        embed = gen_embed(
+            title="WHAT'S EBI / EBI JAIL?",
+            content=("Ebi = Hitorinbo Envy, the only song that matters.\n\n"
+                     "It's the shortest song in the game, meta pick for tierers, and you will probably play it if it’s a Marathon event (for hours at a time, usually, hence \"ebi jail\")."))
         embed.set_footer(text=discord.Embed.Empty)
         await dest_channel.send(embed=embed)
         await ctx.interaction.followup.send(embed=gen_embed(
-            title='VS Live Guide',
-            content=f'Versus Live guide posted in {dest_channel.mention}'),
+            title='Marathon Filling Info',
+            content=f'Marathon Filling guide posted in {dest_channel.mention}'),
             ephemeral=True)
 
     @guides.command(name='carpal-avoidance',
@@ -313,14 +373,14 @@ class Tiering(commands.Cog):
             content=('Below is a helpful guide for warming up. Other guides for Gamer Stretches™ probably exist on the'
                      ' internet. If you have one you like, keep following it.\n\nTake off any wristwatches before'
                      ' playing - wearing them worsens carpal tunnel.\n\nGrab a jug of water or other drinks to keep'
-                     ' hydration within arm’s reach.'))
+                     ' hydration within arm's reach.'))
         embed.set_footer(text=discord.Embed.Empty)
         await dest_channel.send(embed=embed)
         await dest_channel.send(content='https://esportshealthcare.com/gamer-warm-up/')
         embed = gen_embed(
             title="While Playing",
             content=('**Try to keep good posture.**\nTyping ergonomics logic likely applies here.\n'
-                     '🔹 Consider playing on index fingers; it’s easier on your wrists. Put your phone or tablet flat'
+                     '🔹 Consider playing on index fingers; it's easier on your wrists. Put your phone or tablet flat'
                      ' on the table, and tap on it as if it was a keyboard.\n'
                      '🔹 Position your wrist straight/aligned and neutral, as if you were playing piano.\n'
                      '🔹 Try to look down at your screen with your eyes instead of moving your head.'
@@ -364,122 +424,122 @@ class Tiering(commands.Cog):
             content=f'Carpal Tunnel & RSI Avoidance guide posted in {dest_channel.mention}'),
             ephemeral=True)
 
-    @guides.command(name='new-players',
-                    description='Generates a guide for helping new players adjust to tiering')
-    @default_permissions(manage_messages=True)
-    async def vsliveguide(self,
-                          ctx: discord.ApplicationContext,
-                          channel: Option(discord.SlashCommandOptionType.channel,
-                                          ('Channel to post guide in. If not specified, '
-                                           'will post in current channel'),
-                                          required=False)):
-        await ctx.interaction.response.defer()
-        if channel:
-            dest_channel = channel
-        else:
-            dest_channel = ctx.interaction.channel
-        embed = gen_embed(
-            name=f"{ctx.guild.name}",
-            icon_url=ctx.guild.icon.url,
-            title='New Tiering Member Tips & Tricks',
-            content=('Graciously created by **feathers**, edited by **Neon**'
-                     '\n\nHi all, I’m here to make a special additional post regarding new players, rules, and tiering'
-                     ' etiquette. The trend lately has been that brand new players tend to have difficulty knowing what'
-                     ' questions they should be asking, and aren’t familiar with the intensity of tiering and the need'
-                     ' to rely on fellow players to support each other properly for success. By **no means** should'
-                     ' joining in be discouraged, but I wanted to take some time to emphasize the impact of being a'
-                     ' good or bad helper. Many of you simply read a brief how-to or perhaps watched a video, but doing'
-                     ' those things does not necessarily prepare you to be a good tierer or filler.\n\n'
-                     'Some of these tidbits will repeat established rules, but I encourage you to think of this as'
-                     ' reaffirming how important the rules truly are. The high tierers are spending a lot of time and'
-                     ' money on these events, and we should always be considering that dedication when we come into a'
-                     ' server to support or directly help the high tiering players. Every second will count from start'
-                     ' to end. It is important to be confident and reliable in your ability to help everyone reach'
-                     ' their goals, including those who are shooting for lower tiers. Being a good helper helps'
-                     ' everyone, not just the high tierers.'))
-        embed.set_footer(text=discord.Embed.Empty)
-        await dest_channel.send(embed=embed)
-        embed = gen_embed(
-            title='Importance of Menus',
-            content=('It may seem negligible in the end, but when it comes down to it, getting in those extra songs'
-                     ' per hour thanks to fast menu tapping can make a substantial difference in placement if we come'
-                     ' down to the wire.'))
-        embed.set_footer(text=discord.Embed.Empty)
-        await dest_channel.send(embed=embed)
-        embed = gen_embed(
-            title='Smooth Swapping',
-            content=('The swapping of players in rooms can often lead to the biggest of time losses, so it is extremely'
-                     ' important to judge correctly whether or not you should be joining Room 1 based on how much time'
-                     ' you can spare. Players who have more time on their hands are generally more favorable in Room 1,'
-                     ' where the podium players spend most of their time. The less swaps over time, the more efficient'
-                     ' the room can be.\n\nIf you think you may have obligations (parents, meals, class, etc) that only'
-                     ' allow you to play for short periods of time, try to actively seek out players who can be ready'
-                     ' when you leave before you even join a room to play. I find that searching for replacements about'
-                     ' **30 minutes before you need them** is the best way. If members of the server are present and'
-                     ' unable to play, join the search to find a substitute! This is a team effort through and'
-                     ' through.'))
-        embed.set_footer(text=discord.Embed.Empty)
-        await dest_channel.send(embed=embed)
-        embed = gen_embed(
-            title='Why Should I Remove Pins/Frames/Titles?',
-            content=('The reason we remove these is to reduce loading times across devices, some of which struggle more'
-                     ' than others. While it’s an easy mistake to make, do your best to prepare in advance. Go into'
-                     ' your profile NOW, as you read this, and remove everything. If you accidentally join with them'
-                     ' on, you can remove them the next time you fill your flames.'))
-        embed.set_footer(text=discord.Embed.Empty)
-        await dest_channel.send(embed=embed)
-        embed = gen_embed(
-            title='Flames, Rooms and Syncing',
-            content=('As much as we like to plan this out and pray for full and smooth sets of 90 flames, falling out'
-                     ' of sync is common and there is no reason to panic!\n\nIf you are helping in Room 1 or 2, where'
-                     ' our top 10 and podium runners will be, you must prioritize the highest tiering player in the'
-                     ' room. If T1 is on 30 flames and you, a filler or lower tierer, are on 20 flames, you will refill'
-                     ' when the T1 is ready. It is important that we all reach our goals, but we must support our top'
-                     ' players first and foremost, as is the purpose of servers like this one. T1, T2, and T3 ALWAYS'
-                     ' have highest priority for entering rooms and deciding when flames will be re-synced.'
-                     ' Please listen to them!'))
-        embed.set_footer(text=discord.Embed.Empty)
-        await dest_channel.send(embed=embed)
-        embed = gen_embed(
-            title='Starting a Partially Filled Room',
-            content=('If you happen to be hosting a room with players that are tiering high and need every second to'
-                     ' count, don’t be afraid to start your room with three or four people if a swap goes wrong. Often'
-                     ' the length of one song is enough to re-organize. Don’t wait, EP is EP! Just say you’re going'
-                     ' again and let the players who are swapping in prepare. More songs per hour is always the correct'
-                     ' choice!'))
-        embed.set_footer(text=discord.Embed.Empty)
-        await dest_channel.send(embed=embed)
-        embed = gen_embed(
-            title='Being Asked to Play in a Different Room',
-            content=('Please don’t be personally offended if you are asked to play in a different room. This could'
-                     ' happen if your device loads slowly, if someone else is available to play longer than you, if'
-                     ' someone happens to be able to menu faster than you at that current time, if the room needs'
-                     ' higher band power teams for the extra boost, or even if someone has a better center than you.'
-                     ' There are a lot of reasons a swap could be requested, and it is never personal. It **never**'
-                     ' means that we hate you or are purposely ignoring your goals. Efficiency is key above all else,'
-                     ' and we will try our best to make sure the other room is running smoothly as well!'
-                     ' Don’t make trouble or argue, just do your best to swap out smoothly.'))
-        embed.set_footer(text=discord.Embed.Empty)
-        await dest_channel.send(embed=embed)
-        embed = gen_embed(
-            title='Closing Words of Wisdom',
-            content=('If you are new and not quite sure what you’re doing yet, it might be best not to help in G1'
-                     ' right away. Hang out in other game rooms and watch others to learn how everything works before'
-                     ' jumping into the main tiering room, just to help keep up efficiency where we need it most. If'
-                     ' we need an emergency filler, you’ll know!\n\nUltimately tiering is a game of math and endurance,'
-                     ' and being realistic and mathematical about it is very beneficial mentally and physically. The'
-                     ' mental game is just as important as the endurance, so it is important to stay calm and reign in'
-                     ' those nerves as a first time, or even repeat player. We don’t have to concern ourselves with'
-                     ' what the competition is doing, or who they are, or what they’re up to. We only have to work'
-                     ' together to get the highest numbers the most times per hour until the event is over.'
-                     ' We want **EVERYONE** to achieve their goals, we just need to remember that podium and T10 will'
-                     ' need extra support. Most of all, remember to have fun doing it!'))
-        embed.set_footer(text=discord.Embed.Empty)
-        await dest_channel.send(embed=embed)
-        await ctx.interaction.followup.send(embed=gen_embed(
-            title='New Tiering Members Guide',
-            content=f'New Tiering Members Tips and Tricks guide posted in {dest_channel.mention}'),
-            ephemeral=True)
+    # @guides.command(name='new-players',
+    #                 description='Generates a guide for helping new players adjust to tiering')
+    # @default_permissions(manage_messages=True)
+    # async def vsliveguide(self,
+    #                       ctx: discord.ApplicationContext,
+    #                       channel: Option(discord.SlashCommandOptionType.channel,
+    #                                       ('Channel to post guide in. If not specified, '
+    #                                        'will post in current channel'),
+    #                                       required=False)):
+    #     await ctx.interaction.response.defer()
+    #     if channel:
+    #         dest_channel = channel
+    #     else:
+    #         dest_channel = ctx.interaction.channel
+    #     embed = gen_embed(
+    #         name=f"{ctx.guild.name}",
+    #         icon_url=ctx.guild.icon.url,
+    #         title='New Tiering Member Tips & Tricks',
+    #         content=('Graciously created by **feathers**, edited by **Neon**'
+    #                  '\n\nHi all, I’m here to make a special additional post regarding new players, rules, and tiering'
+    #                  ' etiquette. The trend lately has been that brand new players tend to have difficulty knowing what'
+    #                  ' questions they should be asking, and aren’t familiar with the intensity of tiering and the need'
+    #                  ' to rely on fellow players to support each other properly for success. By **no means** should'
+    #                  ' joining in be discouraged, but I wanted to take some time to emphasize the impact of being a'
+    #                  ' good or bad helper. Many of you simply read a brief how-to or perhaps watched a video, but doing'
+    #                  ' those things does not necessarily prepare you to be a good tierer or filler.\n\n'
+    #                  'Some of these tidbits will repeat established rules, but I encourage you to think of this as'
+    #                  ' reaffirming how important the rules truly are. The high tierers are spending a lot of time and'
+    #                  ' money on these events, and we should always be considering that dedication when we come into a'
+    #                  ' server to support or directly help the high tiering players. Every second will count from start'
+    #                  ' to end. It is important to be confident and reliable in your ability to help everyone reach'
+    #                  ' their goals, including those who are shooting for lower tiers. Being a good helper helps'
+    #                  ' everyone, not just the high tierers.'))
+    #     embed.set_footer(text=discord.Embed.Empty)
+    #     await dest_channel.send(embed=embed)
+    #     embed = gen_embed(
+    #         title='Importance of Menus',
+    #         content=('It may seem negligible in the end, but when it comes down to it, getting in those extra songs'
+    #                  ' per hour thanks to fast menu tapping can make a substantial difference in placement if we come'
+    #                  ' down to the wire.'))
+    #     embed.set_footer(text=discord.Embed.Empty)
+    #     await dest_channel.send(embed=embed)
+    #     embed = gen_embed(
+    #         title='Smooth Swapping',
+    #         content=('The swapping of players in rooms can often lead to the biggest of time losses, so it is extremely'
+    #                  ' important to judge correctly whether or not you should be joining Room 1 based on how much time'
+    #                  ' you can spare. Players who have more time on their hands are generally more favorable in Room 1,'
+    #                  ' where the podium players spend most of their time. The less swaps over time, the more efficient'
+    #                  ' the room can be.\n\nIf you think you may have obligations (parents, meals, class, etc) that only'
+    #                  ' allow you to play for short periods of time, try to actively seek out players who can be ready'
+    #                  ' when you leave before you even join a room to play. I find that searching for replacements about'
+    #                  ' **30 minutes before you need them** is the best way. If members of the server are present and'
+    #                  ' unable to play, join the search to find a substitute! This is a team effort through and'
+    #                  ' through.'))
+    #     embed.set_footer(text=discord.Embed.Empty)
+    #     await dest_channel.send(embed=embed)
+    #     embed = gen_embed(
+    #         title='Why Should I Remove Pins/Frames/Titles?',
+    #         content=('The reason we remove these is to reduce loading times across devices, some of which struggle more'
+    #                  ' than others. While it’s an easy mistake to make, do your best to prepare in advance. Go into'
+    #                  ' your profile NOW, as you read this, and remove everything. If you accidentally join with them'
+    #                  ' on, you can remove them the next time you fill your flames.'))
+    #     embed.set_footer(text=discord.Embed.Empty)
+    #     await dest_channel.send(embed=embed)
+    #     embed = gen_embed(
+    #         title='Flames, Rooms and Syncing',
+    #         content=('As much as we like to plan this out and pray for full and smooth sets of 90 flames, falling out'
+    #                  ' of sync is common and there is no reason to panic!\n\nIf you are helping in Room 1 or 2, where'
+    #                  ' our top 10 and podium runners will be, you must prioritize the highest tiering player in the'
+    #                  ' room. If T1 is on 30 flames and you, a filler or lower tierer, are on 20 flames, you will refill'
+    #                  ' when the T1 is ready. It is important that we all reach our goals, but we must support our top'
+    #                  ' players first and foremost, as is the purpose of servers like this one. T1, T2, and T3 ALWAYS'
+    #                  ' have highest priority for entering rooms and deciding when flames will be re-synced.'
+    #                  ' Please listen to them!'))
+    #     embed.set_footer(text=discord.Embed.Empty)
+    #     await dest_channel.send(embed=embed)
+    #     embed = gen_embed(
+    #         title='Starting a Partially Filled Room',
+    #         content=('If you happen to be hosting a room with players that are tiering high and need every second to'
+    #                  ' count, don’t be afraid to start your room with three or four people if a swap goes wrong. Often'
+    #                  ' the length of one song is enough to re-organize. Don’t wait, EP is EP! Just say you’re going'
+    #                  ' again and let the players who are swapping in prepare. More songs per hour is always the correct'
+    #                  ' choice!'))
+    #     embed.set_footer(text=discord.Embed.Empty)
+    #     await dest_channel.send(embed=embed)
+    #     embed = gen_embed(
+    #         title='Being Asked to Play in a Different Room',
+    #         content=('Please don’t be personally offended if you are asked to play in a different room. This could'
+    #                  ' happen if your device loads slowly, if someone else is available to play longer than you, if'
+    #                  ' someone happens to be able to menu faster than you at that current time, if the room needs'
+    #                  ' higher band power teams for the extra boost, or even if someone has a better center than you.'
+    #                  ' There are a lot of reasons a swap could be requested, and it is never personal. It **never**'
+    #                  ' means that we hate you or are purposely ignoring your goals. Efficiency is key above all else,'
+    #                  ' and we will try our best to make sure the other room is running smoothly as well!'
+    #                  ' Don’t make trouble or argue, just do your best to swap out smoothly.'))
+    #     embed.set_footer(text=discord.Embed.Empty)
+    #     await dest_channel.send(embed=embed)
+    #     embed = gen_embed(
+    #         title='Closing Words of Wisdom',
+    #         content=('If you are new and not quite sure what you’re doing yet, it might be best not to help in G1'
+    #                  ' right away. Hang out in other game rooms and watch others to learn how everything works before'
+    #                  ' jumping into the main tiering room, just to help keep up efficiency where we need it most. If'
+    #                  ' we need an emergency filler, you’ll know!\n\nUltimately tiering is a game of math and endurance,'
+    #                  ' and being realistic and mathematical about it is very beneficial mentally and physically. The'
+    #                  ' mental game is just as important as the endurance, so it is important to stay calm and reign in'
+    #                  ' those nerves as a first time, or even repeat player. We don’t have to concern ourselves with'
+    #                  ' what the competition is doing, or who they are, or what they’re up to. We only have to work'
+    #                  ' together to get the highest numbers the most times per hour until the event is over.'
+    #                  ' We want **EVERYONE** to achieve their goals, we just need to remember that podium and T10 will'
+    #                  ' need extra support. Most of all, remember to have fun doing it!'))
+    #     embed.set_footer(text=discord.Embed.Empty)
+    #     await dest_channel.send(embed=embed)
+    #     await ctx.interaction.followup.send(embed=gen_embed(
+    #         title='New Tiering Members Guide',
+    #         content=f'New Tiering Members Tips and Tricks guide posted in {dest_channel.mention}'),
+    #         ephemeral=True)
 
     @commands.command(name='room',
                       aliases=['rm'],
