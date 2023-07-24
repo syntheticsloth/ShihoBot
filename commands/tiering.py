@@ -363,8 +363,7 @@ class Tiering(commands.Cog):
         await dest_channel.send(embed=embed)
         embed = gen_embed(
             title="HOW TO MAKE A TEAM / SKILLS 101",
-            content=("__ONLY 2 THINGS MATTER__: Max skill bonus (biggest score% boost) and TALENT\n\n"
-                     "__BEST SKILLS (IN ORDER)__ *(example values are skill lvl 1, 4\* cards)*:\n"
+            content=("__BEST SKILLS (IN ORDER)__ *(example values are skill lvl 1, 4\* cards)*:\n"
                      "1. **Unit Scorer [UScorer]** NEEDS ALL CARDS FROM SAME UNIT (yes, VS works)\n"
                      "```\"Score boost 80% for 5 seconds; For every member of [UNIT] in your team, there will be an extra score boost of 10%, with a maximum boost of 130%\"```\n"
                      "2. **Life Scorer [LScorer]**\n"
