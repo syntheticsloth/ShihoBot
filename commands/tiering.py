@@ -456,7 +456,7 @@ class Tiering(commands.Cog):
                      "• DON'T USE Accuracy Scorer / Combo Scorer [AScorer/GScorer] 9/10 TIMES\n"
                      "```\"70% score boost for 5 seconds (120% until GREAT or lower)\"```\n"
                      "Tierers have skill issue and can't all perfect combo all the time\n\n"
-                     "Use only if your tierers are built different/say it*s OK"))
+                     "Use only if your tierers are built different/say it's OK"))
         embed.set_image(url='https://svenxiety.xyz/junk/fill_best.png')
         embed.set_footer(text=discord.Embed.Empty)
         await dest_channel.send(embed=embed)
