@@ -93,6 +93,16 @@ class CommandErrorHandler(commands.Cog):
             await ctx.respond(embed=gen_embed(title=f'{error.status}', content=f'{error.text}'))
             return
 
+        elif isinstance(error, commands.CommandOnCooldown):
+            log.warning("Command on Cooldown - Traceback below:")
+            traceback.print_exception(type(error), error, error.__traceback__, limit=0)
+            await ctx.send(
+                embed=gen_embed(title="Command on Cooldown",
+                                content=f"You are trying to change the name too many times. Discord's global rate "
+                                        f"limit per channel is twice per 10 minutes.\nPlease try again in "
+                                        f"{format_timespan(ctx.command.get_cooldown_retry_after(ctx))}."))
+            return
+
         else:
             log.error(f"Ignoring unhandled exception in application command {ctx.command.name!r}")
             traceback.print_exception(type(error), error, error.__traceback__)
