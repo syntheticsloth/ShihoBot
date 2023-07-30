@@ -96,7 +96,7 @@ class CommandErrorHandler(commands.Cog):
         elif isinstance(error, commands.CommandOnCooldown):
             log.warning("Command on Cooldown - Traceback below:")
             traceback.print_exception(type(error), error, error.__traceback__, limit=0)
-            await ctx.send(
+            await ctx.respond(
                 embed=gen_embed(title="Command on Cooldown",
                                 content=f"You are trying to change the name too many times. Discord's global rate "
                                         f"limit per channel is twice per 10 minutes.\nPlease try again in "
